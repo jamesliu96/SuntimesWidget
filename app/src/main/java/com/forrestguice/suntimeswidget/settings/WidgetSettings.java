@@ -51,8 +51,18 @@ import com.forrestguice.suntimeswidget.calculator.settings.display.LengthUnitDis
 import com.forrestguice.suntimeswidget.calendar.CalendarSettings;
 import com.forrestguice.suntimeswidget.events.EventSettings;
 import com.forrestguice.suntimeswidget.getfix.LocationHelperSettings;
+import com.forrestguice.suntimeswidget.widgets.AlarmWidget0_2x2;
 import com.forrestguice.suntimeswidget.widgets.AlarmWidgetSettings;
 import com.forrestguice.suntimeswidget.widgets.ClockWidgetSettings;
+import com.forrestguice.suntimeswidget.widgets.MoonWidget0;
+import com.forrestguice.suntimeswidget.widgets.MoonWidget0_2x1;
+import com.forrestguice.suntimeswidget.widgets.MoonWidget0_3x1;
+import com.forrestguice.suntimeswidget.widgets.SuntimesWidget0;
+import com.forrestguice.suntimeswidget.widgets.SuntimesWidget0_2x1;
+import com.forrestguice.suntimeswidget.widgets.SuntimesWidget0_3x1;
+import com.forrestguice.suntimeswidget.widgets.SuntimesWidget2;
+import com.forrestguice.suntimeswidget.widgets.SuntimesWidget2_3x1;
+import com.forrestguice.suntimeswidget.widgets.SuntimesWidget2_3x2;
 import com.forrestguice.suntimeswidget.widgets.layouts.MoonLayout;
 import com.forrestguice.suntimeswidget.widgets.layouts.MoonLayout_1x1_0;
 import com.forrestguice.suntimeswidget.widgets.layouts.MoonLayout_1x1_1;
@@ -512,6 +522,8 @@ public class WidgetSettings
 
     public interface WidgetModeDisplay
     {
+        String getWidgetSize();
+        Class<?> getWidgetClass();
         int getLayoutID();
         String getDisplayString();
         String name();
@@ -534,6 +546,16 @@ public class WidgetSettings
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+        }
+
+        @Override
+        public String getWidgetSize() {
+            return SIZE_1x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return SuntimesWidget0.class;
         }
 
         public int getLayoutID()
@@ -593,6 +615,16 @@ public class WidgetSettings
             this.layoutID = layoutID;
         }
 
+        @Override
+        public String getWidgetSize() {
+            return SIZE_2x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return SuntimesWidget0_2x1.class;
+        }
+
         public int getLayoutID()
         {
             return layoutID;
@@ -644,6 +676,17 @@ public class WidgetSettings
         }
 
         private final int layoutID;
+
+        @Override
+        public String getWidgetSize() {
+            return SIZE_3x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return SuntimesWidget0_3x1.class;
+        }
+
         public int getLayoutID() {
             return layoutID;
         }
@@ -690,6 +733,16 @@ public class WidgetSettings
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+        }
+
+        @Override
+        public String getWidgetSize() {
+            return SIZE_1x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return SuntimesWidget2.class;
         }
 
         public int getLayoutID()
@@ -748,6 +801,16 @@ public class WidgetSettings
             this.layoutID = layoutID;
         }
 
+        @Override
+        public String getWidgetSize() {
+            return SIZE_3x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return SuntimesWidget2_3x1.class;
+        }
+
         public int getLayoutID()
         {
             return layoutID;
@@ -804,6 +867,16 @@ public class WidgetSettings
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+        }
+
+        @Override
+        public String getWidgetSize() {
+            return SIZE_3x2;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return SuntimesWidget2_3x2.class;
         }
 
         public int getLayoutID() {
@@ -865,6 +938,16 @@ public class WidgetSettings
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+        }
+
+        @Override
+        public String getWidgetSize() {
+            return SIZE_1x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return MoonWidget0.class;
         }
 
         public int getLayoutID()
@@ -930,6 +1013,16 @@ public class WidgetSettings
             this.layoutID = layoutID;
         }
 
+        @Override
+        public String getWidgetSize() {
+            return SIZE_2x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return MoonWidget0_2x1.class;
+        }
+
         public int getLayoutID()
         {
             return layoutID;
@@ -981,6 +1074,16 @@ public class WidgetSettings
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+        }
+
+        @Override
+        public String getWidgetSize() {
+            return SIZE_3x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return MoonWidget0_3x1.class;
         }
 
         public int getLayoutID()

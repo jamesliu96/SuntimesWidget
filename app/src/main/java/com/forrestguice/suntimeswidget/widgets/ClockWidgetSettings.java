@@ -223,6 +223,16 @@ public class ClockWidgetSettings
             this.layoutID = layoutID;
         }
 
+        @Override
+        public String getWidgetSize() {
+            return WidgetSettings.SIZE_3x1;    // prefer 3x1 mode for preview
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return ClockWidget0_3x1.class;    // prefer 3x1 mode for preview
+        }
+
         public int getLayoutID() {
             return layoutID;
         }

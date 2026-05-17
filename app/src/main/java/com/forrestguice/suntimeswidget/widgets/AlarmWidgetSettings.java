@@ -298,6 +298,16 @@ public class AlarmWidgetSettings
             this.layoutID = layoutID;
         }
 
+        @Override
+        public String getWidgetSize() {
+            return SIZE_1x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return AlarmWidget0.class;
+        }
+
         public int getLayoutID() {
             return layoutID;
         }
@@ -348,6 +358,16 @@ public class AlarmWidgetSettings
             this.layoutID = layoutID;
         }
 
+        @Override
+        public String getWidgetSize() {
+            return SIZE_2x2;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return AlarmWidget0_2x2.class;
+        }
+
         public int getLayoutID() {
             return layoutID;
         }
@@ -396,6 +416,16 @@ public class AlarmWidgetSettings
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+        }
+
+        @Override
+        public String getWidgetSize() {
+            return SIZE_3x2;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return AlarmWidget0_3x2.class;
         }
 
         public int getLayoutID() {

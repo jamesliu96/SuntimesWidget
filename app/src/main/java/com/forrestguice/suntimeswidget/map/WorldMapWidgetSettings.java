@@ -25,6 +25,7 @@ import android.net.Uri;
 
 import com.forrestguice.suntimeswidget.R;
 
+import com.forrestguice.suntimeswidget.widgets.SuntimesWidget2;
 import com.forrestguice.util.Log;
 import com.forrestguice.annotation.NonNull;
 import com.forrestguice.annotation.Nullable;
@@ -209,6 +210,16 @@ public class WorldMapWidgetSettings
         @NonNull
         public String toString() {
             return displayString;
+        }
+
+        @Override
+        public String getWidgetSize() {
+            return WidgetSettings.SIZE_3x3;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return SuntimesWidget2.class;
         }
 
         @Override
