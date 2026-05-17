@@ -30,6 +30,7 @@ import com.forrestguice.suntimeswidget.widgets.layouts.ClockLayout_1x1_0;
 import com.forrestguice.suntimeswidget.widgets.layouts.ClockLayout_1x1_1;
 import com.forrestguice.suntimeswidget.widgets.layouts.ClockLayout_1x1_2;
 import com.forrestguice.suntimeswidget.widgets.layouts.ClockLayout_1x1_3;
+import com.forrestguice.suntimeswidget.widgets.layouts.SuntimesLayout;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -208,19 +209,21 @@ public class ClockWidgetSettings
      */
     public static enum WidgetModeClock1x1 implements WidgetSettings.WidgetModeDisplay
     {
-        CLOCK0("Clock 0", R.layout.layout_widget_clock_1x1_0),
-        CLOCK1("Clock 1", R.layout.layout_widget_clock_1x1_1),
-        CLOCK2("Clock 2", R.layout.layout_widget_clock_1x1_2),
-        CLOCK3("Clock 3", R.layout.layout_widget_clock_1x1_3),
+        CLOCK0("Clock 0", R.layout.layout_widget_clock_1x1_0, new ClockLayout_1x1_0()),
+        CLOCK1("Clock 1", R.layout.layout_widget_clock_1x1_1, new ClockLayout_1x1_1()),
+        CLOCK2("Clock 2", R.layout.layout_widget_clock_1x1_2, new ClockLayout_1x1_2()),
+        CLOCK3("Clock 3", R.layout.layout_widget_clock_1x1_3, new ClockLayout_1x1_3()),
         ;
 
+        private final SuntimesLayout layout;
         private final int layoutID;
         private String displayString;
 
-        private WidgetModeClock1x1(@NonNull String displayString, int layoutID)
+        private WidgetModeClock1x1(@NonNull String displayString, int layoutID, ClockLayout layout)
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+            this.layout = layout;
         }
 
         @Override
@@ -231,6 +234,11 @@ public class ClockWidgetSettings
         @Override
         public Class<?> getWidgetClass() {
             return ClockWidget0_3x1.class;    // prefer 3x1 mode for preview
+        }
+
+        @Override
+        public SuntimesLayout getWidgetLayout() {
+            return layout;
         }
 
         public int getLayoutID() {

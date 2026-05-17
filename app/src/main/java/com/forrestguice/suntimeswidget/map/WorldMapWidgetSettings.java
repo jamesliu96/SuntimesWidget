@@ -26,6 +26,9 @@ import android.net.Uri;
 import com.forrestguice.suntimeswidget.R;
 
 import com.forrestguice.suntimeswidget.widgets.SuntimesWidget2;
+import com.forrestguice.suntimeswidget.widgets.layouts.SunPosLayout_3X2_2;
+import com.forrestguice.suntimeswidget.widgets.layouts.SunPosLayout_3X3_0;
+import com.forrestguice.suntimeswidget.widgets.layouts.SuntimesLayout;
 import com.forrestguice.util.Log;
 import com.forrestguice.annotation.NonNull;
 import com.forrestguice.annotation.Nullable;
@@ -178,16 +181,17 @@ public class WorldMapWidgetSettings
      */
     public static enum WorldMapWidgetMode implements WidgetSettings.WidgetModeDisplay
     {
-        EQUIRECTANGULAR_SIMPLE("Simple", MAPTAG_3x2, R.layout.layout_widget_sunpos_3x2_0, false, 0, 0, "Equidistant Rectangular", PROJ4_EQD),
-        EQUIRECTANGULAR_BLUEMARBLE("Blue Marble", MAPTAG_3x2, R.layout.layout_widget_sunpos_3x2_01, false, 0, 0, "Equidistant Rectangular", PROJ4_EQD),
-        EQUIAZIMUTHAL_SIMPLE("Polar [north]", MAPTAG_3x3, R.layout.layout_widget_sunpos_3x3_0, false, 90, 0, "Equidistant Azimuthal", PROJ4_AEQD),
-        EQUIAZIMUTHAL_SIMPLE1("Polar [south]", MAPTAG_3x3, R.layout.layout_widget_sunpos_3x3_1, false, -90, 0, "Equidistant Azimuthal", PROJ4_AEQD),
-        EQUIAZIMUTHAL_SIMPLE2("Equidistant Azimuthal", MAPTAG_3x3, R.layout.layout_widget_sunpos_3x3_2, true, 33.45, -111.94, "Equidistant Azimuthal", PROJ4_AEQD1),
-        MERCATOR_SIMPLE("Mercator", MAPTAG_3x3, R.layout.layout_widget_sunpos_3x3_3, false, 0, 0, "Mercator", PROJ4_MERC),   // TODO: layout
-        VANDERGRINTEN_SIMPLE("Van der Grinten", MAPTAG_3x3, R.layout.layout_widget_sunpos_3x3_4, false, 0, 0, "Van der Grinten", PROJ4_VANDG),
-        SINUSOIDAL_SIMPLE("Sinusoidal", MAPTAG_3x2, R.layout.layout_widget_sunpos_3x3_5, false, 0, 0, "Sinuisoidal", PROJ4_SINU),
+        EQUIRECTANGULAR_SIMPLE("Simple", MAPTAG_3x2, R.layout.layout_widget_sunpos_3x2_0, new SunPosLayout_3X2_2(), false, 0, 0, "Equidistant Rectangular", PROJ4_EQD),
+        EQUIRECTANGULAR_BLUEMARBLE("Blue Marble", MAPTAG_3x2, R.layout.layout_widget_sunpos_3x2_01, new SunPosLayout_3X2_2(), false, 0, 0, "Equidistant Rectangular", PROJ4_EQD),
+        EQUIAZIMUTHAL_SIMPLE("Polar [north]", MAPTAG_3x3, R.layout.layout_widget_sunpos_3x3_0, new SunPosLayout_3X3_0(), false, 90, 0, "Equidistant Azimuthal", PROJ4_AEQD),
+        EQUIAZIMUTHAL_SIMPLE1("Polar [south]", MAPTAG_3x3, R.layout.layout_widget_sunpos_3x3_1, new SunPosLayout_3X3_0(), false, -90, 0, "Equidistant Azimuthal", PROJ4_AEQD),
+        EQUIAZIMUTHAL_SIMPLE2("Equidistant Azimuthal", MAPTAG_3x3, R.layout.layout_widget_sunpos_3x3_2, new SunPosLayout_3X3_0(),true, 33.45, -111.94, "Equidistant Azimuthal", PROJ4_AEQD1),
+        MERCATOR_SIMPLE("Mercator", MAPTAG_3x3, R.layout.layout_widget_sunpos_3x3_3,  new SunPosLayout_3X3_0(),false, 0, 0, "Mercator", PROJ4_MERC),   // TODO: layout
+        VANDERGRINTEN_SIMPLE("Van der Grinten", MAPTAG_3x3, R.layout.layout_widget_sunpos_3x3_4, new SunPosLayout_3X3_0(), false, 0, 0, "Van der Grinten", PROJ4_VANDG),
+        SINUSOIDAL_SIMPLE("Sinusoidal", MAPTAG_3x2, R.layout.layout_widget_sunpos_3x3_5,  new SunPosLayout_3X3_0(),false, 0, 0, "Sinuisoidal", PROJ4_SINU),
         ;
 
+        private final SuntimesLayout layout;
         private final int layoutID;
         private String displayString;
         private final String tag;
@@ -196,11 +200,12 @@ public class WorldMapWidgetSettings
         private String projectionTitle;
         private final String proj4String;
 
-        private WorldMapWidgetMode(@NonNull String displayString, String tag, int layoutID, boolean supportsCenter, double centerLat, double centerLon, String projectionTitle, String proj4String)
+        private WorldMapWidgetMode(@NonNull String displayString, String tag, int layoutID, SuntimesLayout layout, boolean supportsCenter, double centerLat, double centerLon, String projectionTitle, String proj4String)
         {
             this.displayString = displayString;
             this.projectionTitle = projectionTitle;
             this.proj4String = proj4String;
+            this.layout = layout;
             this.layoutID = layoutID;
             this.tag = tag;
             this.supportsCenter = supportsCenter;
@@ -220,6 +225,11 @@ public class WorldMapWidgetSettings
         @Override
         public Class<?> getWidgetClass() {
             return SuntimesWidget2.class;
+        }
+
+        @Override
+        public SuntimesLayout getWidgetLayout() {
+            return layout;
         }
 
         @Override

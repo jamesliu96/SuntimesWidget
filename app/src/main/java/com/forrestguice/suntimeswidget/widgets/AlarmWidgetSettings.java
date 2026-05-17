@@ -31,6 +31,7 @@ import com.forrestguice.suntimeswidget.widgets.layouts.AlarmLayout_1x1_0;
 import com.forrestguice.suntimeswidget.widgets.layouts.AlarmLayout_2x2_0;
 import com.forrestguice.suntimeswidget.widgets.layouts.AlarmLayout_2x2_1;
 import com.forrestguice.suntimeswidget.widgets.layouts.AlarmLayout_3x2_0;
+import com.forrestguice.suntimeswidget.widgets.layouts.SuntimesLayout;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -287,15 +288,17 @@ public class AlarmWidgetSettings
      */
     public static enum WidgetModeAlarm1x1 implements WidgetSettings.WidgetModeDisplay
     {
-        NEXTALARM("Next Alarm", R.layout.layout_widget_alarm_1x1_0);
+        NEXTALARM("Next Alarm", R.layout.layout_widget_alarm_1x1_0, new AlarmLayout_1x1_0());
 
+        private final SuntimesLayout layout;
         private final int layoutID;
         private String displayString;
 
-        private WidgetModeAlarm1x1(@NonNull String displayString, int layoutID)
+        private WidgetModeAlarm1x1(@NonNull String displayString, int layoutID, AlarmLayout layout)
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+            this.layout = layout;
         }
 
         @Override
@@ -306,6 +309,11 @@ public class AlarmWidgetSettings
         @Override
         public Class<?> getWidgetClass() {
             return AlarmWidget0.class;
+        }
+
+        @Override
+        public SuntimesLayout getWidgetLayout() {
+            return layout;
         }
 
         public int getLayoutID() {
@@ -346,16 +354,18 @@ public class AlarmWidgetSettings
      */
     public static enum WidgetModeAlarm2x2 implements WidgetSettings.WidgetModeDisplay
     {
-        ALARMLIST("Alarm List", R.layout.layout_widget_alarm_2x2_0),
-        NEXTALARM_DETAILED("Next Alarm (detailed)", R.layout.layout_widget_alarm_2x2_1);
+        ALARMLIST("Alarm List", R.layout.layout_widget_alarm_2x2_0, new AlarmLayout_2x2_0()),
+        NEXTALARM_DETAILED("Next Alarm (detailed)", R.layout.layout_widget_alarm_2x2_1, new AlarmLayout_2x2_1());
 
+        private final SuntimesLayout layout;
         private final int layoutID;
         private String displayString;
 
-        private WidgetModeAlarm2x2(@NonNull String displayString, int layoutID)
+        private WidgetModeAlarm2x2(@NonNull String displayString, int layoutID, AlarmLayout layout)
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+            this.layout = layout;
         }
 
         @Override
@@ -366,6 +376,11 @@ public class AlarmWidgetSettings
         @Override
         public Class<?> getWidgetClass() {
             return AlarmWidget0_2x2.class;
+        }
+
+        @Override
+        public SuntimesLayout getWidgetLayout() {
+            return layout;
         }
 
         public int getLayoutID() {
@@ -407,15 +422,17 @@ public class AlarmWidgetSettings
      */
     public static enum WidgetModeAlarm3x2 implements WidgetSettings.WidgetModeDisplay
     {
-        ALARMLIST_DETAILED("Alarm List (detailed)", R.layout.layout_widget_alarm_2x2_0);    // 3x2 alarmlist uses same layout as 2x2
+        ALARMLIST_DETAILED("Alarm List (detailed)", R.layout.layout_widget_alarm_2x2_0, new AlarmLayout_2x2_0());    // 3x2 alarmlist uses same layout as 2x2
 
+        private final SuntimesLayout layout;
         private final int layoutID;
         private String displayString;
 
-        private WidgetModeAlarm3x2(@NonNull String displayString, int layoutID)
+        private WidgetModeAlarm3x2(@NonNull String displayString, int layoutID, AlarmLayout layout)
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+            this.layout = layout;
         }
 
         @Override
@@ -426,6 +443,11 @@ public class AlarmWidgetSettings
         @Override
         public Class<?> getWidgetClass() {
             return AlarmWidget0_3x2.class;
+        }
+
+        @Override
+        public SuntimesLayout getWidgetLayout() {
+            return layout;
         }
 
         public int getLayoutID() {
