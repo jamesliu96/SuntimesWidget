@@ -1270,15 +1270,15 @@ public class SuntimesConfigActivity0 extends AppCompatActivity
     {
         switch (size)
         {
-            case SIZE_3x3: return new int[] {maxWidgetPx(context, 3), maxWidgetPx(context, 3)};
-            case SIZE_3x2: return new int[] {maxWidgetPx(context, 3), maxWidgetPx(context, 2)};
-            case SIZE_3x1: return new int[] {maxWidgetPx(context, 3), maxWidgetPx(context, 1)};
-            case SIZE_2x3: return new int[] {maxWidgetPx(context, 2), maxWidgetPx(context, 3)};
-            case SIZE_2x2: return new int[] {maxWidgetPx(context, 2), maxWidgetPx(context, 2)};
-            case SIZE_2x1: return new int[] {maxWidgetPx(context, 2), maxWidgetPx(context, 1)};
-            case SIZE_1x3: return new int[] {maxWidgetPx(context, 1), maxWidgetPx(context, 3)};
-            case SIZE_1x2: return new int[] {maxWidgetPx(context, 1), maxWidgetPx(context, 2)};
-            case SIZE_1x1: default: return new int[] {maxWidgetPx(context, 1), maxWidgetPx(context, 1)};
+            case WidgetSettings.SIZE_3x3: return new int[] {maxWidgetPx(context, 3), maxWidgetPx(context, 3)};
+            case WidgetSettings.SIZE_3x2: return new int[] {maxWidgetPx(context, 3), maxWidgetPx(context, 2)};
+            case WidgetSettings.SIZE_3x1: return new int[] {maxWidgetPx(context, 3), maxWidgetPx(context, 1)};
+            case WidgetSettings.SIZE_2x3: return new int[] {maxWidgetPx(context, 2), maxWidgetPx(context, 3)};
+            case WidgetSettings.SIZE_2x2: return new int[] {maxWidgetPx(context, 2), maxWidgetPx(context, 2)};
+            case WidgetSettings.SIZE_2x1: return new int[] {maxWidgetPx(context, 2), maxWidgetPx(context, 1)};
+            case WidgetSettings.SIZE_1x3: return new int[] {maxWidgetPx(context, 1), maxWidgetPx(context, 3)};
+            case WidgetSettings.SIZE_1x2: return new int[] {maxWidgetPx(context, 1), maxWidgetPx(context, 2)};
+            case WidgetSettings.SIZE_1x1: default: return new int[] {maxWidgetPx(context, 1), maxWidgetPx(context, 1)};
         }
     }
     protected int minWidgetPx(int n) {
@@ -1622,17 +1622,8 @@ public class SuntimesConfigActivity0 extends AppCompatActivity
         }
     };
 
-    public static final String SIZE_1x1 = "1x1";
-    public static final String SIZE_1x2 = "1x2";
-    public static final String SIZE_1x3 = "1x3";
-    public static final String SIZE_2x1 = "2x1";
-    public static final String SIZE_2x2 = "2x2";
-    public static final String SIZE_2x3 = "2x3";
-    public static final String SIZE_3x1 = "3x1";
-    public static final String SIZE_3x2 = "3x2";
-    public static final String SIZE_3x3 = "3x3";
     protected String getPrimaryWidgetModeSize() {
-        return SIZE_1x1;
+        return WidgetSettings.SIZE_1x1;
     }
     protected TextView getPrimaryWidgetModeLabel() {
         return label_1x1mode;

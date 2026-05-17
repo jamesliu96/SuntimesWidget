@@ -29,6 +29,8 @@ import com.forrestguice.suntimeswidget.R;
 import com.forrestguice.suntimeswidget.widgets.layouts.MoonLayout;
 import com.forrestguice.suntimeswidget.widgets.layouts.MoonLayout_2x1_0;
 
+import static com.forrestguice.suntimeswidget.settings.WidgetSettings.SIZE_2x1;
+
 public class MoonWidget0ConfigActivity_2x1 extends MoonWidget0ConfigActivity
 {
     public MoonWidget0ConfigActivity_2x1()

@@ -27,6 +27,8 @@ import android.widget.TextView;
 import com.forrestguice.suntimeswidget.themes.WidgetThemeConfigActivity;
 import com.forrestguice.suntimeswidget.widgets.layouts.AlarmLayout;
 
+import static com.forrestguice.suntimeswidget.settings.WidgetSettings.SIZE_2x2;
+
 /**
  * Alarm widget config activity.
  */

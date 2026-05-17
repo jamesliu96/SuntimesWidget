@@ -500,6 +500,16 @@ public class WidgetSettings
         ActionMode.ONTAP_FLIPTO_NEXTITEM.setDisplayString(context.getString(R.string.actionMode_flipToNextItem));
     }
 
+    public static final String SIZE_1x1 = "1x1";
+    public static final String SIZE_1x2 = "1x2";
+    public static final String SIZE_1x3 = "1x3";
+    public static final String SIZE_2x1 = "2x1";
+    public static final String SIZE_2x2 = "2x2";
+    public static final String SIZE_2x3 = "2x3";
+    public static final String SIZE_3x1 = "3x1";
+    public static final String SIZE_3x2 = "3x2";
+    public static final String SIZE_3x3 = "3x3";
+
     public interface WidgetModeDisplay
     {
         int getLayoutID();

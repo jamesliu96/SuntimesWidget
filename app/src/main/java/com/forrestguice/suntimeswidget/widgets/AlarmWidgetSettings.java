@@ -39,6 +39,9 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import static com.forrestguice.suntimeswidget.settings.WidgetSettings.PREF_PREFIX_KEY_APPEARANCE;
+import static com.forrestguice.suntimeswidget.settings.WidgetSettings.SIZE_1x1;
+import static com.forrestguice.suntimeswidget.settings.WidgetSettings.SIZE_2x2;
+import static com.forrestguice.suntimeswidget.settings.WidgetSettings.SIZE_3x2;
 
 public class AlarmWidgetSettings
 {
