@@ -92,15 +92,23 @@ public class SolsticeWidget0 extends SuntimesWidget0
         }
 
         SuntimesEquinoxSolsticeData data = getSolsticeEquinoxData(context, appWidgetId);
+        RemoteViews views = createRemoteViews(context, appWidgetId, data, layout);
+
+        views.setOnClickPendingIntent(R.id.widgetframe_inner, SuntimesWidget0.clickActionIntent(context, appWidgetId, SolsticeWidget0.class));
+        appWidgetManager.updateAppWidget(context, appWidgetId, views);
+    }
+
+    protected static RemoteViews createRemoteViews(Context context, int appWidgetId, SuntimesEquinoxSolsticeData data, SolsticeLayout layout)
+    {
         layout.prepareForUpdate(context, appWidgetId, data);
         RemoteViews views = layout.getViews(context);
 
         boolean showTitle = WidgetSettings.loadShowTitlePref(context, appWidgetId);
         views.setViewVisibility(R.id.text_title, showTitle ? View.VISIBLE : View.GONE);
-        views.setOnClickPendingIntent(R.id.widgetframe_inner, SuntimesWidget0.clickActionIntent(context, appWidgetId, SolsticeWidget0.class));
+
         layout.themeViews(context, views, appWidgetId);
         layout.updateViews(context, appWidgetId, views, data);
-        appWidgetManager.updateAppWidget(context, appWidgetId, views);
+        return views;
     }
 
     public static SuntimesEquinoxSolsticeData getSolsticeEquinoxData(Context context, int appWidgetId)

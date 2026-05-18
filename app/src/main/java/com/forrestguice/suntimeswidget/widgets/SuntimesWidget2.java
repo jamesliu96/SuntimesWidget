@@ -88,18 +88,27 @@ public class SuntimesWidget2 extends SuntimesWidget0
             updateLocationToLastKnown(context, appWidgetId);
         }
 
-        SuntimesRiseSetDataset dataset = new SuntimesRiseSetDataset(context, appWidgetId);
+        SuntimesRiseSetDataset dataset = createDataset(context, appWidgetId);
         layout.prepareForUpdate(context, appWidgetId, dataset, widgetMaxSizeDp(context, appWidgetManager, appWidgetId, new int[] {40, 40}));
+        RemoteViews views = createRemoteViews(context, appWidgetId, dataset, layout);
 
+        views.setOnClickPendingIntent(R.id.widgetframe_inner, SuntimesWidget0.clickActionIntent(context, appWidgetId, widgetClass));
+        appWidgetManager.updateAppWidget(context, appWidgetId, views);
+    }
+
+    protected static RemoteViews createRemoteViews(Context context, int appWidgetId, SuntimesRiseSetDataset dataset, SunPosLayout layout)
+    {
         RemoteViews views = layout.getViews(context);
         boolean showTitle = WidgetSettings.loadShowTitlePref(context, appWidgetId);
         views.setViewVisibility(R.id.text_title, showTitle ? View.VISIBLE : View.GONE);
 
-        views.setOnClickPendingIntent(R.id.widgetframe_inner, SuntimesWidget0.clickActionIntent(context, appWidgetId, widgetClass));
-
         layout.themeViews(context, views, appWidgetId);
         layout.updateViews(context, appWidgetId, views, dataset);
-        appWidgetManager.updateAppWidget(context, appWidgetId, views);
+        return views;
+    }
+
+    protected static SuntimesRiseSetDataset createDataset(Context context, int appWidgetId) {
+        return new SuntimesRiseSetDataset(context, appWidgetId);
     }
 
     @Override

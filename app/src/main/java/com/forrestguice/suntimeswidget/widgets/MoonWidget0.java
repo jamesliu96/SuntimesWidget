@@ -75,18 +75,10 @@ public class MoonWidget0 extends SuntimesWidget0
             updateLocationToLastKnown(context, appWidgetId);
         }
 
-        SuntimesMoonData data = new SuntimesMoonData(context, appWidgetId);
-        data.calculate(context);
-        layout.prepareForUpdate(context, appWidgetId, data);
+        SuntimesMoonData data = createMoonData(context, appWidgetId);
+        RemoteViews views = createRemoteViews(context, appWidgetId, data, layout);
 
-        RemoteViews views = layout.getViews(context);
         views.setOnClickPendingIntent(R.id.widgetframe_inner, SuntimesWidget0.clickActionIntent(context, appWidgetId, widgetClass));
-
-        boolean showTitle = WidgetSettings.loadShowTitlePref(context, appWidgetId);
-        views.setViewVisibility(R.id.text_title, showTitle ? View.VISIBLE : View.GONE);
-
-        layout.themeViews(context, views, appWidgetId);
-        layout.updateViews(context, appWidgetId, views, data);
         appWidgetManager.updateAppWidget(context, appWidgetId, views);
 
         if (!layout.saveNextSuggestedUpdate(context, appWidgetId))
@@ -105,6 +97,25 @@ public class MoonWidget0 extends SuntimesWidget0
                 Log.d(TAG, "saveNextSuggestedUpdate: " + utils.calendarDateTimeDisplayString(AndroidResources.wrap(context), soonest).toString());
             }
         }
+    }
+
+    protected static RemoteViews createRemoteViews(Context context, int appWidgetId, SuntimesMoonData data, MoonLayout layout)
+    {
+        layout.prepareForUpdate(context, appWidgetId, data);
+        RemoteViews views = layout.getViews(context);
+
+        boolean showTitle = WidgetSettings.loadShowTitlePref(context, appWidgetId);
+        views.setViewVisibility(R.id.text_title, showTitle ? View.VISIBLE : View.GONE);
+
+        layout.themeViews(context, views, appWidgetId);
+        layout.updateViews(context, appWidgetId, views, data);
+        return views;
+    }
+
+    protected static SuntimesMoonData createMoonData(Context context, int appWidgetId) {
+        SuntimesMoonData data = new SuntimesMoonData(context, appWidgetId);
+        data.calculate(context);
+        return data;
     }
 
     @Override
