@@ -174,9 +174,9 @@ public class AlarmWidgetService extends RemoteViewsService
         {
             switch (layoutMode)
             {
-                case MODE_3x2: return R.layout.layout_listitem_alarmwidget1;
+                case MODE_3x2: return R.layout.widget_listitem_alarm1;
                 case MODE_2x2:
-                default: return R.layout.layout_listitem_alarmwidget;
+                default: return R.layout.widget_listitem_alarm;
             }
         }
 
