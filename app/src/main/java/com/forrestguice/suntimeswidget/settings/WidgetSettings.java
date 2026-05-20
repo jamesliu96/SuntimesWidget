@@ -129,7 +129,7 @@ public class WidgetSettings
                                                                                    new String[] {"moon", PREF_DEF_GENERAL_CALCULATOR_MOON} };
 
     public static final String PREF_KEY_APPEARANCE_THEME = "theme";
-    public static final String PREF_DEF_APPEARANCE_THEME = DarkTheme1.THEMEDEF_NAME;
+    public static final String PREF_DEF_APPEARANCE_THEME = DarkTheme1.THEMEDEF_NAME;   // overriden by `def_appwidget_0_appearance_theme`
 
     public static final String PREF_KEY_APPEARANCE_SHOWTITLE = "showtitle";
     public static final boolean PREF_DEF_APPEARANCE_SHOWTITLE = false;
@@ -1869,8 +1869,11 @@ public class WidgetSettings
     {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_WIDGET, 0);
         String prefs_prefix = PREF_PREFIX_KEY + appWidgetId + PREF_PREFIX_KEY_APPEARANCE;
-        String s = prefs.getString(prefs_prefix + PREF_KEY_APPEARANCE_THEME, PREF_DEF_APPEARANCE_THEME);
-        return (s != null ? s : PREF_DEF_APPEARANCE_THEME);
+        String s = prefs.getString(prefs_prefix + PREF_KEY_APPEARANCE_THEME, getThemeDefault(context));
+        return (s != null ? s : getThemeDefault(context));
+    }
+    public static String getThemeDefault(Context context) {
+        return (context != null ? context.getString(R.string.def_appwidget_0_appearance_theme) : PREF_DEF_APPEARANCE_THEME);
     }
     public static SuntimesTheme loadThemePref(Context context, int appWidgetId)
     {
