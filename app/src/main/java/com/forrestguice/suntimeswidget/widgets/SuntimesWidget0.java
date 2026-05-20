@@ -493,18 +493,27 @@ public class SuntimesWidget0 extends AppWidgetProvider
         if (Build.VERSION.SDK_INT >= 16)
         {
             Bundle widgetOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
-            int[]  sizePortrait = { widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH),   // dp values
-                    widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT) };
-            int[]  sizeLandscape = { widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH),
-                    widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT) };
+            //int[]  sizePortrait = { widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH),   // dp values
+            //        widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT) };
+            //int[]  sizeLandscape = { widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH),
+            //        widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT) };
 
             //Log.d("widgetSizeDp", "portrait:  [" + sizePortrait[0] + ", " + sizePortrait[1] + "]");
             //Log.d("widgetSizeDp", "landscape: [" + sizeLandscape[0] + ", " + sizeLandscape[1] + "]");
             //Toast toast = Toast.makeText(context, "[" + sizePortrait[0] + ", " + sizePortrait[1] + "]; " + "[" + sizeLandscape[0] + ", " + sizeLandscape[1] + "]", Toast.LENGTH_SHORT);
             //toast.show();
 
-            mustFitWithinDp[0] = Math.min( sizePortrait[0], sizeLandscape[0] );
-            mustFitWithinDp[1] = Math.min( sizePortrait[1], sizeLandscape[1] );
+            //mustFitWithinDp[0] = Math.min( sizePortrait[0], sizeLandscape[0] );
+            //mustFitWithinDp[1] = Math.min( sizePortrait[1], sizeLandscape[1] );
+
+            int[] width = { widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH),   // dp values   ... and inconsistent behavior between Android versions
+                            widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH) };
+
+            int[] height = { widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT),   // dp values
+                             widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT) };
+
+            mustFitWithinDp[0] = Math.min( width[0], width[1] );
+            mustFitWithinDp[1] = Math.min( height[1], height[1] );
             Log.d("widgetSizeDp", "1: must fit:  [" + mustFitWithinDp[0] + ", " + mustFitWithinDp[1] + "]");
         }
         return mustFitWithinDp;
