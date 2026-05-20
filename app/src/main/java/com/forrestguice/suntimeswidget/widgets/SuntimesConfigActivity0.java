@@ -2120,7 +2120,9 @@ public class SuntimesConfigActivity0 extends AppCompatActivity
     {
         // save: theme
         ThemeDescriptor theme = (ThemeDescriptor)spinner_theme.getSelectedItem();
-        WidgetSettings.saveThemePref(context, appWidgetId, theme.name());
+        if (theme != null) {
+            WidgetSettings.saveThemePref(context, appWidgetId, theme.name());
+        }
         //Log.d("DEBUG", "Saved theme: " + theme.name());
 
         // save: scale text
@@ -2133,7 +2135,9 @@ public class SuntimesConfigActivity0 extends AppCompatActivity
 
         // save: gravity
         WidgetSettings.WidgetGravity gravity = (WidgetSettings.WidgetGravity)spinner_gravity.getSelectedItem();
-        WidgetSettings.saveWidgetGravityPref(context, appWidgetId, gravity.getPosition());
+        if (gravity != null) {
+            WidgetSettings.saveWidgetGravityPref(context, appWidgetId, gravity.getPosition());
+        }
 
         // save: show title
         boolean showTitle = checkbox_showTitle.isChecked();
