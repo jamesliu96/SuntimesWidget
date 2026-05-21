@@ -826,8 +826,8 @@ public class WidgetSettings
     public static enum WidgetModeSunPos3x1 implements WidgetModeDisplay
     {
         MODE3x1_LIGHTMAP("Lightmap", R.layout.layout_widget_sunpos_3x1_0, new SunPosLayout_3X1_0()),
-        MODE3x1_LIGHTMAP_MEDIUM("Lightmap (medium)", R.layout.layout_widget_sunpos_3x1_0, new SunPosLayout_3X1_0()),
-        MODE3x1_LIGHTMAP_SMALL("Lightmap (small)", R.layout.layout_widget_sunpos_3x1_0, new SunPosLayout_3X1_0());
+        MODE3x1_LIGHTMAP_MEDIUM("Lightmap (medium)", R.layout.layout_widget_sunpos_3x1_0, new SunPosLayout_3X1_1()),
+        MODE3x1_LIGHTMAP_SMALL("Lightmap (small)", R.layout.layout_widget_sunpos_3x1_0, new SunPosLayout_3X1_2());
 
         private final SuntimesLayout layout;
         private final int layoutID;
