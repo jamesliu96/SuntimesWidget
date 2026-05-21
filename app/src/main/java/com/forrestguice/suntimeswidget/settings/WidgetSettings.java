@@ -545,8 +545,7 @@ public class WidgetSettings
     {
         WIDGETMODE1x1_SUNRISE("Sunrise only", R.layout.layout_widget_1x1_1, new SunLayout_1x1_1()),
         WIDGETMODE1x1_SUNSET("Sunset only", R.layout.layout_widget_1x1_2, new SunLayout_1x1_2()),
-        WIDGETMODE1x1_BOTH_1("Sunrise & Sunset (1)", R.layout.layout_widget_1x1_0, new SunLayout_1x1_0()),
-        WIDGETMODE1x1_BOTH_2("Sunrise & Sunset (2)", R.layout.layout_widget_1x1_3, new SunLayout_1x1_4());
+        WIDGETMODE1x1_BOTH_1("Sunrise & Sunset", R.layout.layout_widget_1x1_0, new SunLayout_1x1_0());
 
         private final SuntimesLayout layout;
         private final int layoutID;
@@ -601,7 +600,6 @@ public class WidgetSettings
             WIDGETMODE1x1_SUNRISE.setDisplayString(context.getString(R.string.widgetMode1x1_sunrise));
             WIDGETMODE1x1_SUNSET.setDisplayString(context.getString(R.string.widgetMode1x1_sunset));
             WIDGETMODE1x1_BOTH_1.setDisplayString(context.getString(R.string.widgetMode1x1_both_1));
-            WIDGETMODE1x1_BOTH_2.setDisplayString(context.getString(R.string.widgetMode1x1_both_2));
         }
 
         public static boolean supportsLayout(int layoutID)
