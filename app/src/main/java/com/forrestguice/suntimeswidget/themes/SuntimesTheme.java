@@ -1237,11 +1237,11 @@ public class SuntimesTheme
     public enum ThemeBackground
     {
         COLOR(-1, "Colour", true),
-        TRANSPARENT(android.R.color.transparent, "Transparent", false),
         DARK_HOLO(R.drawable.bg_widget_dark, "Dark (Holo)", false),
         DARK_MONET(R.drawable.monet_bg_widget_dark, "Dark (Material)", false),
         LIGHT_HOLO(R.drawable.bg_widget, "Light (Holo)", false),
         LIGHT_MONET(R.drawable.monet_bg_widget_light, "Light (Material)", false),
+        TRANSPARENT(R.drawable.bg_widget_trans, "Transparent", false),
         ;
 
         private final int resID;
