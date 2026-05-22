@@ -3062,6 +3062,17 @@ public class SuntimesConfigActivity0 extends AppCompatActivity
     }
 
     /**
+     * @param showOption true; show typeface options, false hide options
+     */
+    protected void showOptionTypeface(boolean showOption)
+    {
+        View layout_typeface = findViewById(R.id.appwidget_appearance_typeface_group);
+        if (layout_typeface != null) {
+            layout_typeface.setVisibility((showOption) ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    /**
      * @param showOption true; show labels option, false hide option
      */
     protected void showOptionLabels(boolean showOption)

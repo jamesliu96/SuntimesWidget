@@ -49,6 +49,17 @@ public class ClockWidgetSettings
     public static final String PREF_KEY_APPEARANCE_WIDGETMODE_CLOCK = "widgetmode_clock";
     public static final WidgetModeClock1x1 PREF_DEF_APPEARANCE_WIDGETMODE_CLOCK1x1 = WidgetModeClock1x1.CLOCK2;
 
+    public static final String PREF_DEF_APPEARANCE_TYPEFACE = "serif-monospace";
+    public static final String[] FONT_FAMILIES = new String[] {
+            "casual", "cursive", "monospace",
+            "sans-serif", "sans-serif-black",
+            "sans-serif-condensed", "sans-serif-condensed-light", "sans-serif-condensed-medium",
+            "sans-serif-light", "sans-serif-medium", "sans-serif-smallcaps", "sans-serif-thin",
+            "serif", "serif-monospace",
+            "source-sans-pro", "source-sans-pro-semi-bold",
+            "roboto-flex"
+    };  // https://android.googlesource.com/platform/frameworks/base/+/master/data/fonts/fonts.xml
+
     //////////////////////////////////////////////////
     //////////////////////////////////////////////////
 

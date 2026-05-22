@@ -396,6 +396,7 @@
     <string name="settings_appearance">Appearance</string>           <!-- group title -->
     <string name="settings_appearance_mode">Appearance</string>                  <!-- spinner label -->
     <string name="settings_appearance_theme">Theme:</string>                  <!-- spinner label -->
+    <string name="settings_appearance_fontfamily">Font:</string>                  <!-- spinner label -->   <!-- TODO -->
     <string name="settings_appearance_allowResize">Swap layouts to fill available space</string>  <!-- checkbox label -->
     <string name="settings_appearance_scaleText">Scale text and icons</string>  <!-- checkbox label -->
     <string name="settings_appearance_scaleBase">Fill entire cell</string>  <!-- checkbox label -->
@@ -940,6 +941,8 @@
     <string name="themes_configHint_themeSizeTime" tools:common="true">12</string>                  <!-- edit hint -->
 
     <string name="themes_configLabel_themeBoldTime">Bold</string>          <!-- checkbox label -->
+    <string name="themes_configLabel_themeItalicTime">Italic</string>          <!-- checkbox label -->
+    <string name="themes_configLabel_themeOutlineTime">Outline</string>          <!-- checkbox label -->
 
     <string name="themes_configLabel_themeSizeSuffix">Suffix Size:</string> <!-- edit label -->
     <string name="themes_configHint_themeSizeSuffix" tools:common="true">8</string>                  <!-- edit hint -->

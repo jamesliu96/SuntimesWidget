@@ -82,6 +82,9 @@ public class ClockLayout_1x1_1 extends ClockLayout_1x1_0
         if (options == null) {
             options = new ClockFaceOptions(context, appWidgetId);
         }
+        options.outline = ClockWidgetSettings.loadClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_OUTLINE, true);
+        options.italic = ClockWidgetSettings.loadClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_ITALIC, false);
+        options.bold = boldTime(context, appWidgetId);
         options.textColor = ClockWidgetSettings.loadClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_COLOR, timeColor);
         options.minTextSizePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, textSizeSp, context.getResources().getDisplayMetrics());
         options.textAlign = AppSettings.isLocaleRtl(context) ? Paint.Align.LEFT : Paint.Align.RIGHT;
@@ -311,7 +314,7 @@ public class ClockLayout_1x1_1 extends ClockLayout_1x1_0
         public int textColor = Color.WHITE;
         public Paint.Align textAlign = Paint.Align.RIGHT;
 
-        public String fontFamily = "serif-monospace"; //"sans-serif-black";    // casual, cursive, monospace, sans-serif, sans-serif-black, sans-serif-condensed, sans-serif-condensed-light, sans-serif-light, sans-serif-medium, sans-serif-thin, serif, serif-monospace
+        public String fontFamily = ClockWidgetSettings.PREF_DEF_APPEARANCE_TYPEFACE;
         public boolean bold = false;
         public boolean italic = false;
 
@@ -519,7 +522,7 @@ public class ClockLayout_1x1_1 extends ClockLayout_1x1_0
                     float maxSp = getMaxSp();
                     int[] maxDp = new int[] { (maxDimensionsDp[0] - (paddingDp[0] + paddingDp[2])),
                                               ((maxDimensionsDp[1] - (paddingDp[1] + paddingDp[3]) - ((int)titleSizeSp * showTitle)) / 5) };
-                    float[] adjustedSizeSp = adjustTextSize(context, maxDp, paddingDp, "sans-serif", boldTime, dateString, textSizeSp, maxSp, "", 0);
+                    float[] adjustedSizeSp = adjustTextSize(context, maxDp, paddingDp, "sans-serif", boldTime(context, appWidgetId), dateString, textSizeSp, maxSp, "", 0);
 
                     if (adjustedSizeSp[0] != textSizeSp) {
                         views.setTextViewTextSize(R.id.text_date, TypedValue.COMPLEX_UNIT_DIP, adjustedSizeSp[0]);

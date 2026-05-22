@@ -23,6 +23,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -31,8 +35,16 @@ import com.forrestguice.suntimeswidget.R;
 import com.forrestguice.suntimeswidget.calculator.SuntimesCalculatorDescriptor;
 import com.forrestguice.suntimeswidget.calculator.settings.TimezoneMode;
 import com.forrestguice.suntimeswidget.settings.WidgetSettings;
+import com.forrestguice.suntimeswidget.settings.WidgetThemes;
+import com.forrestguice.suntimeswidget.settings.colors.ColorChangeListener;
+import com.forrestguice.suntimeswidget.settings.colors.ColorChooser;
+import com.forrestguice.suntimeswidget.settings.colors.ColorChooserView;
+import com.forrestguice.suntimeswidget.themes.SuntimesTheme;
 import com.forrestguice.suntimeswidget.themes.WidgetThemeConfigActivity;
 import com.forrestguice.suntimeswidget.widgets.layouts.ClockLayout;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Clock widget config activity.
@@ -49,12 +61,20 @@ public class ClockWidget0ConfigActivity extends SuntimesConfigActivity0
         return ClockWidget0.class;
     }
 
+    protected ArrayAdapter<String> spin_typeface_adapter;
+    protected Spinner spin_typeface;
+    protected ColorChooser choose_textColor;
+    protected CheckBox check_bold;
+    protected CheckBox check_italic;
+    protected CheckBox check_outline;
+
     @Override
     protected void initViews( Context context )
     {
         super.initViews(context);
         setConfigActivityTitle(getString(R.string.widgetConfig_clockwidget0));
 
+        showOptionTypeface(true);
         showOptionShowDate(true);
         // TODO: date pattern config
 
@@ -78,6 +98,66 @@ public class ClockWidget0ConfigActivity extends SuntimesConfigActivity0
 
         moveSectionToTop(R.id.appwidget_timezone_layout);
         moveSectionToTop(R.id.appwidget_general_layout);
+
+        spin_typeface = (Spinner) findViewById(R.id.appwidget_appearance_typeface);
+        if (spin_typeface != null)
+        {
+            spin_typeface_adapter = new ArrayAdapter<String>(this, R.layout.layout_listitem_oneline, ClockWidgetSettings.FONT_FAMILIES);
+            spin_typeface_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spin_typeface.setAdapter(spin_typeface_adapter);
+            spin_typeface.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+            {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    updatePreview("onTypefaceChanged", ClockWidget0ConfigActivity.this);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {}
+            });
+        }
+
+        ColorChooserView textColorView = (ColorChooserView) findViewById(R.id.appwidget_appearance_typeface_color);
+        if (textColorView != null)
+        {
+            choose_textColor = new ColorChooser(context, textColorView.getLabel(), textColorView.getEdit(), textColorView.getButton(), "textColor");
+            choose_textColor.setFragmentManager(this);
+            choose_textColor.setCollapsed(true);
+            choose_textColor.setColorChangeListener(new ColorChangeListener()
+            {
+                @Override
+                public void onColorChanged(int color)
+                {
+                    updatePreview("onColorChanged", ClockWidget0ConfigActivity.this);
+                    choose_textColor.addRecentColor(color);
+                }
+            });
+        }
+
+        check_bold = (CheckBox) findViewById(R.id.appwidget_appearance_typeface_bold);
+        if (check_bold != null) {
+            addOnCheckedChangeListener(check_bold, null);
+        }
+
+        check_italic = (CheckBox) findViewById(R.id.appwidget_appearance_typeface_italic);
+        if (check_italic != null) {
+            addOnCheckedChangeListener(check_italic, null);
+        }
+
+        check_outline = (CheckBox) findViewById(R.id.appwidget_appearance_typeface_outline);
+        if (check_outline != null) {
+            addOnCheckedChangeListener(check_outline, null);
+        }
+
+        Button restoreDefaults = (Button) findViewById(R.id.appwidget_appearance_typeface_clear);
+        if (restoreDefaults != null) {
+            restoreDefaults.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    restoreTypefaceDefaults(view.getContext());
+                }
+            });
+        }
     }
 
     @Override
@@ -117,6 +197,84 @@ public class ClockWidget0ConfigActivity extends SuntimesConfigActivity0
 
         String titleText = WidgetSettings.loadTitleTextPref(context, appWidgetId, DEF_TITLETEXT);
         text_titleText.setText(titleText);
+    }
+
+    @Override
+    protected void loadAppearanceSettings(Context context)
+    {
+        super.loadAppearanceSettings(context);
+        loadTypefaceSettings(context);
+    }
+
+    @Override
+    protected void saveAppearanceSettings(Context context, int appWidgetId)
+    {
+        super.saveAppearanceSettings(context, appWidgetId);
+        saveTypefaceSettings(context, appWidgetId);
+    }
+
+    protected void loadTypefaceSettings(Context context)
+    {
+        SuntimesTheme.ThemeDescriptor themeDescriptor = (SuntimesTheme.ThemeDescriptor) spinner_theme.getSelectedItem();
+        SuntimesTheme theme = WidgetThemes.loadTheme(context, themeDescriptor.name());
+
+        int defaultColor = theme.getTimeColor();
+        boolean defaultBold = theme.getTimeBold();
+        boolean defaultItalic = false;
+        boolean defaultOutline = true;
+
+        if (spin_typeface != null) {
+            String fontfamily = ClockWidgetSettings.loadClockTypefacePref(context, appWidgetId, ClockWidgetSettings.PREF_DEF_APPEARANCE_TYPEFACE);
+            spin_typeface.setSelection(spin_typeface_adapter.getPosition(fontfamily));
+        }
+        if (choose_textColor != null)
+        {
+            int color = ClockWidgetSettings.loadClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_COLOR, defaultColor);
+            choose_textColor.setColor(color);
+
+            ArrayList<Integer> recentColors = new ArrayList<>();
+            recentColors.add(color);
+            choose_textColor.setRecentColors(recentColors);
+        }
+        if (check_bold != null) {
+            check_bold.setChecked(ClockWidgetSettings.loadClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_BOLD, defaultBold));
+        }
+        if (check_italic != null) {
+            check_italic.setChecked(ClockWidgetSettings.loadClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_ITALIC, defaultItalic));
+        }
+        if (check_outline != null) {
+            check_outline.setChecked(ClockWidgetSettings.loadClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_OUTLINE, defaultOutline));
+        }
+    }
+
+    protected void saveTypefaceSettings(Context context, int appWidgetId)
+    {
+        if (spin_typeface != null) {
+            ClockWidgetSettings.saveClockTypefacePref(context, appWidgetId, spin_typeface.getSelectedItem().toString());
+        }
+        if (choose_textColor != null) {
+            ClockWidgetSettings.saveClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_COLOR, choose_textColor.getColor());
+        }
+        if (check_bold != null) {
+            ClockWidgetSettings.saveClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_BOLD, check_bold.isChecked());
+        }
+        if (check_italic != null) {
+            ClockWidgetSettings.saveClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_ITALIC, check_italic.isChecked());
+        }
+        if (check_outline != null) {
+            ClockWidgetSettings.saveClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_OUTLINE, check_outline.isChecked());
+        }
+    }
+
+    protected void restoreTypefaceDefaults(Context context)
+    {
+        ClockWidgetSettings.deleteClockTypefacePref(context, appWidgetId);
+        ClockWidgetSettings.deleteClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_COLOR);
+        ClockWidgetSettings.deleteClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_BOLD);
+        ClockWidgetSettings.deleteClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_ITALIC);
+        ClockWidgetSettings.deleteClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_OUTLINE);
+        loadTypefaceSettings(context);
+        updatePreview("onRestoreDefaults", context);
     }
 
     @Override
