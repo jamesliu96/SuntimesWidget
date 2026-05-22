@@ -270,8 +270,8 @@
 
     <string name="settings_general_timeFormatMode">Format des heures :</string>         <!-- spinner label -->
 
-    <string name="settings_general_altitude_enabled">Utiliser l\'altitude</string>        <!-- checkbox label -->
-    <string name="settings_general_altitude_enabled_summary">Ajuster en fonction de l\'altitude.</string>        <!-- checkbox label -->
+    <string name="settings_general_altitude_enabled">Utiliser l\'élévation</string>        <!-- checkbox label -->
+    <string name="settings_general_altitude_enabled_summary">Ajuster en fonction de l\'élévation.</string>        <!-- checkbox label -->
 
     <string name="settings_general_localize_hemisphere">Adapter selon l\'hémisphère</string>        <!-- checkbox label -->
     <string name="settings_general_localize_hemisphere_summary">Afichage adapté à l\'hémisphères (indicateurs de saison, icônes des phases lunaires).</string>        <!-- checkbox label -->
@@ -376,7 +376,7 @@
     <string name="timeMode_midnighttwilight">Crépuscule de minuit</string>       <!-- a label (not an actual timeMode setting) -->
     <string name="timeMode_midnighttwilight_whitenight">Nuit blanche</string>  <!-- a label (not an actual timeMode setting) -->
 
-    <string name="timeMode_equinox_vernal">équinoxe du printemps</string>      <!-- setting -->
+    <string name="timeMode_equinox_vernal">équinoxe de printemps</string>      <!-- setting -->
     <string name="timeMode_equinox_vernal_short">équinoxe</string>       <!-- setting -->
     <string name="timeMode_equinox_autumnal">équinoxe d\'automne</string>  <!-- setting -->
     <string name="timeMode_equinox_autumnal_short">équinoxe</string>     <!-- setting -->
@@ -539,7 +539,7 @@
     <string name="location_hint_lat">Degrés décimaux</string>      <!-- edittext hint -->
     <string name="location_label_lon">Longitude :</string>                          <!-- edittext label -->
     <string name="location_hint_lon">Degrés décimaux</string> <!-- edittext hint -->
-    <string name="location_label_alt">Altitude :</string>                          <!-- edittext label -->
+    <string name="location_label_alt">Elévation :</string>                          <!-- edittext label -->
     <string name="location_hint_alt">0</string> <!-- edittext hint -->
     <string name="location_label_name">Nom :</string>                      <!-- edittext label -->
     <string name="location_hint_name">(optionnel)</string>                  <!-- edittext hint -->
@@ -857,8 +857,8 @@
 
     <string name="widgetLabel_azimuth">Azimut</string>                   <!-- label -->  
     <string name="widgetLabel_azimuth_short">Azim.</string>                   <!-- label -->  
-    <string name="widgetLabel_altitude">Altitude</string>               <!-- label -->  
-    <string name="widgetLabel_altitude_short">Alt.</string>               <!-- label -->  
+    <string name="widgetLabel_altitude">Elévation</string>               <!-- label -->
+    <string name="widgetLabel_altitude_short">Elev.</string>               <!-- label -->
 
     <string name="widgetLabel_rightAscension">Ascension droite</string>    <!-- label -->  
     <string name="widgetLabel_rightAscension_short">AD</string>    <!-- label -->  
@@ -1910,7 +1910,7 @@
         <item>premier quartier</item>
         <item>pleine lune</item>
         <item>dernier quartier</item>
-        <item>équinoxe du printemps</item>
+        <item>équinoxe de printemps</item>
         <item>Solstice d\'été</item>
         <item>équinoxe d\'automne</item>
         <item>Solstice d\'hiver</item>
@@ -2027,7 +2027,7 @@
     <string name="location_dialog_cancel">Annuler</string>
     <string name="location_dialog_error_lat">La latitude n\'est pas valide.</string>
     <string name="location_dialog_error_lon">La longitude n\'est pas valide.</string>
-    <string name="location_dialog_error_alt">L\'altitude n\'est pas valide.</string>
+    <string name="location_dialog_error_alt">L\'élévation n\'est pas valide.</string>
     <string name="location_dialog_error_name">Saisissez un nom pour ce lieu</string>
 
     <string name="location_dialog_toast_copied">Copié dans le presse-papier<![CDATA[<br/>]]><xliff:g id="value">%1$s</xliff:g></string>
