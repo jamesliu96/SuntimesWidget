@@ -30,7 +30,7 @@ public class DarkThemeMD3T extends DarkThemeMD3
     private static ThemeDescriptor THEMEDEF_DESCRIPTOR = null;
 
     public static final ThemeBackground THEMEDEF_BACKGROUND = ThemeBackground.DARK_MONET_T;
-    public static final int THEMEDEF_BACKGROUND_COLOR_ID = R.color.monet_dark_card_bg;
+    public static final int THEMEDEF_BACKGROUND_COLOR_ID = R.color.monet_dark_card_bg_trans;
 
     public DarkThemeMD3T(Context context)
     {

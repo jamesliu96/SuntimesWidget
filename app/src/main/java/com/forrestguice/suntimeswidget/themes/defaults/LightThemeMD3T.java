@@ -30,7 +30,7 @@ public class LightThemeMD3T extends LightThemeMD3
     private static ThemeDescriptor THEMEDEF_DESCRIPTOR = null;
 
     public static final ThemeBackground THEMEDEF_BACKGROUND = ThemeBackground.LIGHT_MONET_T;
-    public static final int THEMEDEF_BACKGROUND_COLOR_ID = R.color.monet_light_card_bg;
+    public static final int THEMEDEF_BACKGROUND_COLOR_ID = R.color.monet_light_card_bg_trans;
 
     public LightThemeMD3T(Context context)
     {
