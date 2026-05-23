@@ -27,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -67,6 +68,7 @@ public class ClockWidget0ConfigActivity extends SuntimesConfigActivity0
     protected CheckBox check_bold;
     protected CheckBox check_italic;
     protected CheckBox check_outline;
+    protected CheckBox check_cutout;
 
     @Override
     protected void initViews( Context context )
@@ -146,7 +148,26 @@ public class ClockWidget0ConfigActivity extends SuntimesConfigActivity0
 
         check_outline = (CheckBox) findViewById(R.id.appwidget_appearance_typeface_outline);
         if (check_outline != null) {
-            addOnCheckedChangeListener(check_outline, null);
+            addOnCheckedChangeListener(check_outline, new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (b && check_cutout != null) {
+                        check_cutout.setChecked(false);
+                    }
+                }
+            });
+        }
+
+        check_cutout = (CheckBox) findViewById(R.id.appwidget_appearance_typeface_cutout);
+        if (check_cutout != null) {
+            addOnCheckedChangeListener(check_cutout, new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (b && check_outline != null) {
+                        check_outline.setChecked(false);
+                    }
+                }
+            });
         }
 
         Button restoreDefaults = (Button) findViewById(R.id.appwidget_appearance_typeface_clear);
@@ -220,8 +241,9 @@ public class ClockWidget0ConfigActivity extends SuntimesConfigActivity0
 
         int defaultColor = theme.getTimeColor();
         boolean defaultBold = theme.getTimeBold();
-        boolean defaultItalic = false;
-        boolean defaultOutline = true;
+        boolean defaultItalic = ClockWidgetSettings.PREF_DEF_APPEARANCE_ITALIC;
+        boolean defaultOutline = ClockWidgetSettings.PREF_DEF_APPEARANCE_OUTLINE;
+        boolean defaultCutout = ClockWidgetSettings.PREF_DEF_APPEARANCE_CUTOUT;
 
         if (spin_typeface != null) {
             String fontfamily = ClockWidgetSettings.loadClockTypefacePref(context, appWidgetId, ClockWidgetSettings.PREF_DEF_APPEARANCE_TYPEFACE);
@@ -245,24 +267,49 @@ public class ClockWidget0ConfigActivity extends SuntimesConfigActivity0
         if (check_outline != null) {
             check_outline.setChecked(ClockWidgetSettings.loadClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_OUTLINE, defaultOutline));
         }
+        if (check_cutout != null) {
+            check_cutout.setChecked(ClockWidgetSettings.loadClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_CUTOUT, defaultCutout));
+        }
     }
 
     protected void saveTypefaceSettings(Context context, int appWidgetId)
     {
+        SuntimesTheme.ThemeDescriptor themeDescriptor = (SuntimesTheme.ThemeDescriptor) spinner_theme.getSelectedItem();
+        SuntimesTheme theme = WidgetThemes.loadTheme(context, themeDescriptor.name());
+
         if (spin_typeface != null) {
             ClockWidgetSettings.saveClockTypefacePref(context, appWidgetId, spin_typeface.getSelectedItem().toString());
         }
-        if (choose_textColor != null) {
-            ClockWidgetSettings.saveClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_COLOR, choose_textColor.getColor());
+        if (choose_textColor != null)
+        {
+            int color0 = theme.getTimeColor();
+            int color1 = choose_textColor.getColor();
+            if (color1 != color0) {
+                ClockWidgetSettings.saveClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_COLOR, color1);
+            } else {
+                ClockWidgetSettings.deleteClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_COLOR);
+                Log.d("DEBUG", "clearing settings that match default");
+            }
         }
-        if (check_bold != null) {
-            ClockWidgetSettings.saveClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_BOLD, check_bold.isChecked());
+        if (check_bold != null)
+        {
+            boolean bold0 = theme.getTimeBold();
+            boolean bold1 = check_bold.isChecked();
+            if (bold1 != bold0) {
+                ClockWidgetSettings.saveClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_BOLD, bold1);
+            } else {
+                ClockWidgetSettings.deleteClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_BOLD);
+                Log.d("DEBUG", "clearing settings that match default1");
+            }
         }
         if (check_italic != null) {
             ClockWidgetSettings.saveClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_ITALIC, check_italic.isChecked());
         }
         if (check_outline != null) {
             ClockWidgetSettings.saveClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_OUTLINE, check_outline.isChecked());
+        }
+        if (check_cutout != null) {
+            ClockWidgetSettings.saveClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_CUTOUT, check_cutout.isChecked());
         }
     }
 
@@ -273,6 +320,7 @@ public class ClockWidget0ConfigActivity extends SuntimesConfigActivity0
         ClockWidgetSettings.deleteClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_BOLD);
         ClockWidgetSettings.deleteClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_ITALIC);
         ClockWidgetSettings.deleteClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_OUTLINE);
+        ClockWidgetSettings.deleteClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_CUTOUT);
         loadTypefaceSettings(context);
         updatePreview("onRestoreDefaults", context);
     }

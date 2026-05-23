@@ -945,6 +945,7 @@
     <string name="themes_configLabel_themeBoldTime">Bold</string>          <!-- checkbox label -->
     <string name="themes_configLabel_themeItalicTime">Italic</string>          <!-- checkbox label -->
     <string name="themes_configLabel_themeOutlineTime">Outline</string>          <!-- checkbox label -->
+    <string name="themes_configLabel_themeCutoutTime">Cutout</string>          <!-- checkbox label -->
 
     <string name="themes_configLabel_themeSizeSuffix">Suffix Size:</string> <!-- edit label -->
     <string name="themes_configHint_themeSizeSuffix" tools:common="true">8</string>                  <!-- edit hint -->

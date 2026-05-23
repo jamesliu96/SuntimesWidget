@@ -23,6 +23,7 @@ import android.util.Log;
 
 import com.forrestguice.annotation.NonNull;
 import com.forrestguice.annotation.Nullable;
+import com.forrestguice.colors.Color;
 import com.forrestguice.suntimeswidget.R;
 import com.forrestguice.suntimeswidget.settings.WidgetSettings;
 import com.forrestguice.suntimeswidget.widgets.layouts.ClockLayout;
@@ -44,12 +45,27 @@ public class ClockWidgetSettings
     public static final String PREF_KEY_APPEARANCE_TYPEFACE_ITALIC = "italic";
     public static final String PREF_KEY_APPEARANCE_TYPEFACE_OUTLINE = "outline";
     public static final String PREF_KEY_APPEARANCE_TYPEFACE_COLOR = "color";
+    public static final String PREF_KEY_APPEARANCE_TYPEFACE_GLOW = "glow";
+    public static final String PREF_KEY_APPEARANCE_TYPEFACE_GLOW_COLOR = "glow_color";
+    public static final String PREF_KEY_APPEARANCE_TYPEFACE_CUTOUT = "cutout";
+    public static final String PREF_KEY_APPEARANCE_TYPEFACE_CUTOUT_RADIUS = "cutout_radius";
 
     public static final String MODE_1x1 = "1x1";
     public static final String PREF_KEY_APPEARANCE_WIDGETMODE_CLOCK = "widgetmode_clock";
     public static final WidgetModeClock1x1 PREF_DEF_APPEARANCE_WIDGETMODE_CLOCK1x1 = WidgetModeClock1x1.CLOCK2;
 
     public static final String PREF_DEF_APPEARANCE_TYPEFACE = "serif-monospace";
+    public static final boolean PREF_DEF_APPEARANCE_BOLD = true;
+    public static final boolean PREF_DEF_APPEARANCE_ITALIC = false;
+    public static final boolean PREF_DEF_APPEARANCE_OUTLINE = false;
+    public static final int PREF_DEF_APPEARANCE_COLOR = Color.WHITE;
+
+    public static final boolean PREF_DEF_APPEARANCE_GLOW = false;
+    public static final int PREF_DEF_APPEARANCE_GLOW_COLOR = Color.WHITE;
+
+    public static final boolean PREF_DEF_APPEARANCE_CUTOUT = true;
+    public static final float PREF_DEF_APPEARANCE_CUTOUT_RADIUS = 4;  // 8dp
+
     public static final String[] FONT_FAMILIES = new String[] {
             "casual", "cursive", "monospace",
             "sans-serif", "sans-serif-black",
@@ -69,15 +85,21 @@ public class ClockWidgetSettings
             PREF_PREFIX_KEY_APPEARANCE + PREF_KEY_APPEARANCE_TYPEFACE + "_" + PREF_KEY_APPEARANCE_TYPEFACE_BOLD,
             PREF_PREFIX_KEY_APPEARANCE + PREF_KEY_APPEARANCE_TYPEFACE + "_" + PREF_KEY_APPEARANCE_TYPEFACE_ITALIC,
             PREF_PREFIX_KEY_APPEARANCE + PREF_KEY_APPEARANCE_TYPEFACE + "_" + PREF_KEY_APPEARANCE_TYPEFACE_OUTLINE,
+            PREF_PREFIX_KEY_APPEARANCE + PREF_KEY_APPEARANCE_TYPEFACE + "_" + PREF_KEY_APPEARANCE_TYPEFACE_CUTOUT,
             PREF_PREFIX_KEY_APPEARANCE + PREF_KEY_APPEARANCE_TYPEFACE + "_" + PREF_KEY_APPEARANCE_TYPEFACE_COLOR,
+            PREF_PREFIX_KEY_APPEARANCE + PREF_KEY_APPEARANCE_TYPEFACE + "_" + PREF_KEY_APPEARANCE_TYPEFACE_GLOW,
+            PREF_PREFIX_KEY_APPEARANCE + PREF_KEY_APPEARANCE_TYPEFACE + "_" + PREF_KEY_APPEARANCE_TYPEFACE_GLOW_COLOR,
     };
     public static final String[] BOOL_KEYS = new String[] {
             PREF_PREFIX_KEY_APPEARANCE + PREF_KEY_APPEARANCE_TYPEFACE + "_" + PREF_KEY_APPEARANCE_TYPEFACE_BOLD,
             PREF_PREFIX_KEY_APPEARANCE + PREF_KEY_APPEARANCE_TYPEFACE + "_" + PREF_KEY_APPEARANCE_TYPEFACE_ITALIC,
             PREF_PREFIX_KEY_APPEARANCE + PREF_KEY_APPEARANCE_TYPEFACE + "_" + PREF_KEY_APPEARANCE_TYPEFACE_OUTLINE,
+            PREF_PREFIX_KEY_APPEARANCE + PREF_KEY_APPEARANCE_TYPEFACE + "_" + PREF_KEY_APPEARANCE_TYPEFACE_CUTOUT,
+            PREF_PREFIX_KEY_APPEARANCE + PREF_KEY_APPEARANCE_TYPEFACE + "_" + PREF_KEY_APPEARANCE_TYPEFACE_GLOW,
     };
     public static final String[] INT_KEYS = new String[] {
             PREF_PREFIX_KEY_APPEARANCE + PREF_KEY_APPEARANCE_TYPEFACE + "_" + PREF_KEY_APPEARANCE_TYPEFACE_COLOR,
+            PREF_PREFIX_KEY_APPEARANCE + PREF_KEY_APPEARANCE_TYPEFACE + "_" + PREF_KEY_APPEARANCE_TYPEFACE_GLOW_COLOR,
     };
 
     private static Map<String,Class<?>> types = null;
@@ -321,6 +343,7 @@ public class ClockWidgetSettings
         deleteClockTypefaceValue(context, appWidgetId, PREF_KEY_APPEARANCE_TYPEFACE_BOLD);
         deleteClockTypefaceValue(context, appWidgetId, PREF_KEY_APPEARANCE_TYPEFACE_ITALIC);
         deleteClockTypefaceValue(context, appWidgetId, PREF_KEY_APPEARANCE_TYPEFACE_OUTLINE);
+        deleteClockTypefaceValue(context, appWidgetId, PREF_KEY_APPEARANCE_TYPEFACE_GLOW);
         deleteClockTypefaceValue(context, appWidgetId, PREF_KEY_APPEARANCE_TYPEFACE_COLOR);
     }
 
