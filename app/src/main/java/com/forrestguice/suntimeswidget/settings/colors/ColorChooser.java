@@ -134,9 +134,15 @@ public class ColorChooser implements View.OnFocusChangeListener
         }
     }
 
-    private ArrayList<Integer> recentColors;
+    private ArrayList<Integer> recentColors = new ArrayList<>();
     public void setRecentColors(ArrayList<Integer> colors) {
         recentColors = colors;
+    }
+    public void addRecentColor(int color)
+    {
+        if (!recentColors.contains(color)) {
+            recentColors.add(color);
+        }
     }
 
     /**
@@ -452,8 +458,8 @@ public class ColorChooser implements View.OnFocusChangeListener
         @Override
         public void onColorChanged(int color)
         {
-            setColor(color);
-            ColorChooser.this.onColorChanged(getColor());
+            //setColor(color);
+            //ColorChooser.this.onColorChanged(getColor());
         }
 
         @Override

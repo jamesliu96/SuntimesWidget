@@ -670,7 +670,7 @@ public class SuntimesThemeXML implements SuntimesThemeIO
         }
 
         if (theme.themeBackground == null) {
-            theme.themeBackground = SuntimesTheme.ThemeBackground.DARK;
+            theme.themeBackground = SuntimesTheme.ThemeBackground.DARK_HOLO;
         }
         if (theme.themeActionColor == 0) {
             theme.themeActionColor = theme.themeSunsetIconColor;
@@ -703,7 +703,7 @@ public class SuntimesThemeXML implements SuntimesThemeIO
         } catch (IllegalArgumentException e) {
             Log.e("backgroundStringToId", "Background " + value + " not found. " + e);
         }
-        return SuntimesTheme.ThemeBackground.DARK.getResID();
+        return SuntimesTheme.ThemeBackground.DARK_HOLO.getResID();
     }
 
 }

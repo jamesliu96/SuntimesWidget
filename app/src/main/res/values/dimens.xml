@@ -6,6 +6,10 @@
     <dimen name="dialog_margin1">4dp</dimen>
     <dimen name="tooltip_margin0">8dp</dimen>
 
+    <dimen name="widget_radius_holo">2dp</dimen>
+    <dimen name="widget_radius_md2">@dimen/corner_radius_small</dimen>
+    <dimen name="widget_radius_md3">@dimen/corner_radius_xlarge</dimen>
+
     <dimen name="fab_radius">12dp</dimen>
     <dimen name="tooltip_radius">4dp</dimen>
     <dimen name="toast_radius">28dp</dimen>
@@ -159,5 +163,15 @@
     <dimen name="equinoxList_topMargin">6dp</dimen>
 
     <dimen name="colortext_margin">3dp</dimen>
+
+    <!-- https://m3.material.io/styles/shape/corner-radius-scale -->
+    <dimen name="corner_radius_xsmall">4dp</dimen>
+    <dimen name="corner_radius_small">8dp</dimen>
+    <dimen name="corner_radius_medium">12dp</dimen>
+    <dimen name="corner_radius_large">16dp</dimen>
+    <dimen name="corner_radius_large_inc">20dp</dimen>
+    <dimen name="corner_radius_xlarge">28dp</dimen>
+    <dimen name="corner_radius_xlarge_inc">32dp</dimen>
+    <dimen name="corner_radius_xxlarge">48dp</dimen>
 
 </resources>

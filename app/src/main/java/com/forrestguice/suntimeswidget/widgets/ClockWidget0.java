@@ -72,16 +72,11 @@ public class ClockWidget0 extends SuntimesWidget0
 
     protected static void updateAppWidget(Context context, WidgetManagerInterface appWidgetManager, int appWidgetId, ClockLayout layout)
     {
-        SuntimesClockData data = new SuntimesClockData(context, appWidgetId);
-        data.calculate(context);
+        SuntimesClockData data = createClockData(context, appWidgetId);
         layout.prepareForUpdate(context, appWidgetId, data, widgetMaxSizeDp(context, appWidgetManager, appWidgetId, new int[] {40, 40}));
-        RemoteViews views = layout.getViews(context);
 
-        boolean showTitle = WidgetSettings.loadShowTitlePref(context, appWidgetId);
-        views.setViewVisibility(R.id.text_title, showTitle ? View.VISIBLE : View.GONE);
+        RemoteViews views = createRemoteViews(context, appWidgetId, data, layout);
         views.setOnClickPendingIntent(R.id.widgetframe_inner, SuntimesWidget0.clickActionIntent(context, appWidgetId, ClockWidget0.class));
-        layout.themeViews(context, views, appWidgetId);
-        layout.updateViews(context, appWidgetId, views, data);
         appWidgetManager.updateAppWidget(context, appWidgetId, views);
 
         Calendar nextUpdate = Calendar.getInstance();
@@ -91,9 +86,25 @@ public class ClockWidget0 extends SuntimesWidget0
         WidgetSettings.saveNextSuggestedUpdate(context, appWidgetId, nextUpdate.getTimeInMillis());
     }
 
+    protected static RemoteViews createRemoteViews(Context context, int appWidgetId, SuntimesClockData data, ClockLayout layout)
+    {
+        RemoteViews views = layout.getViews(context);
+        boolean showTitle = WidgetSettings.loadShowTitlePref(context, appWidgetId);
+        views.setViewVisibility(R.id.text_title, showTitle ? View.VISIBLE : View.GONE);
+        layout.themeViews(context, views, appWidgetId);
+        layout.updateViews(context, appWidgetId, views, data);
+        return views;
+    }
+
     @Override
     protected SuntimesData getData(Context context, int appWidgetId) {
         return new SuntimesClockData(context, appWidgetId);
+    }
+
+    protected static SuntimesClockData createClockData(Context context, int appWidgetId) {
+        SuntimesClockData data = new SuntimesClockData(context, appWidgetId);
+        data.calculate(context);
+        return data;
     }
 
     protected static ClockLayout getWidgetLayout(Context context, WidgetManagerInterface appWidgetManager, int appWidgetId, int[] defSize)

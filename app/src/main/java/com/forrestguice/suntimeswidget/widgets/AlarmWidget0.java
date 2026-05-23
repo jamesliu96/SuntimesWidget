@@ -83,10 +83,8 @@ public class AlarmWidget0 extends SuntimesWidget0
 
     protected static void updateAppWidget(Context context, WidgetManagerInterface appWidgetManager, int appWidgetId, AlarmLayout layout, Class<?> widgetClass)
     {
-        SuntimesClockData data = new SuntimesClockData(context, appWidgetId);
-        data.calculate(context);
-        layout.prepareForUpdate(context, appWidgetId, data);
-        RemoteViews views = layout.getViews(context);
+        SuntimesClockData data = createClockData(context, appWidgetId);
+        RemoteViews views = createRemoteViews(context, appWidgetId, data, layout);
 
         int flags = PendingIntent.FLAG_UPDATE_CURRENT;
         if (Build.VERSION.SDK_INT >= 23) {
@@ -96,14 +94,9 @@ public class AlarmWidget0 extends SuntimesWidget0
         Intent intentTemplate = AlarmNotifications.getAlarmListIntent(context, null);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intentTemplate, flags);
         views.setPendingIntentTemplate(R.id.list_alarms, pendingIntent);
-
-        boolean showTitle = WidgetSettings.loadShowTitlePref(context, appWidgetId);
-        views.setViewVisibility(R.id.text_title, showTitle ? View.VISIBLE : View.GONE);
         views.setOnClickPendingIntent(R.id.widgetframe_inner, SuntimesWidget0.clickActionIntent(context, appWidgetId, widgetClass));
-        layout.themeViews(context, views, appWidgetId);
-        layout.updateViews(context, appWidgetId, views, data);
-        appWidgetManager.updateAppWidget(context, appWidgetId, views);
 
+        appWidgetManager.updateAppWidget(context, appWidgetId, views);
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.list_alarms);
 
         Calendar nextUpdate = Calendar.getInstance();
@@ -111,6 +104,23 @@ public class AlarmWidget0 extends SuntimesWidget0
         nextUpdate.add(Calendar.HOUR, 1);   // up to an hour from now
         nextUpdate.set(Calendar.SECOND, 1);
         WidgetSettings.saveNextSuggestedUpdate(context, appWidgetId, nextUpdate.getTimeInMillis());
+    }
+
+    protected static SuntimesClockData createClockData(Context context, int appWidgetId) {
+        SuntimesClockData data = new SuntimesClockData(context, appWidgetId);
+        data.calculate(context);
+        return data;
+    }
+
+    protected static RemoteViews createRemoteViews(Context context, int appWidgetId, SuntimesClockData data, AlarmLayout layout)
+    {
+        layout.prepareForUpdate(context, appWidgetId, data);
+        RemoteViews views = layout.getViews(context);
+        boolean showTitle = WidgetSettings.loadShowTitlePref(context, appWidgetId);
+        views.setViewVisibility(R.id.text_title, showTitle ? View.VISIBLE : View.GONE);
+        layout.themeViews(context, views, appWidgetId);
+        layout.updateViews(context, appWidgetId, views, data);
+        return views;
     }
 
     @Override

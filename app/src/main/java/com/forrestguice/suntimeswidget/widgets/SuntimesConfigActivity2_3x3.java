@@ -30,6 +30,7 @@ import com.forrestguice.suntimeswidget.themes.WidgetThemeConfigActivity;
 import com.forrestguice.suntimeswidget.widgets.layouts.SunPosLayout;
 import com.forrestguice.suntimeswidget.widgets.layouts.SunPosLayout_3X3_0;
 
+import static com.forrestguice.suntimeswidget.settings.WidgetSettings.SIZE_3x3;
 import static com.forrestguice.suntimeswidget.themes.WidgetThemeListActivity.PICK_THEME_REQUEST;
 
 public class SuntimesConfigActivity2_3x3 extends SuntimesConfigActivity2

@@ -6,8 +6,8 @@
     <color name="monet_light_dialog_frame" />
     <color name="monet_light_dialog_bg" />
     <color name="monet_light_dialog_bg_alt" />
-    <color name="monet_light_card_bg" />
-    <color name="monet_light_card_bg_trans" />
+    <color name="monet_light_card_bg">@color/card_bg_contrast_light</color>
+    <color name="monet_light_card_bg_trans">@color/card_bg_lighttrans</color>
     <color name="monet_light_chip_bg_disabled" />
     <color name="monet_light_chip_bg_disabled_stroke" />
     <color name="monet_light_chip_bg_enabled" />
@@ -17,17 +17,21 @@
     <color name="monet_light_chip_tray_bg" />
     <color name="monet_light_menu_bg" />
 
+    <color name="monet_light_widget_bg">@color/monet_light_card_bg</color>
+    <color name="monet_light_widget_pressed">@color/monet_light_alarm_pressed</color>
+    <color name="monet_light_widget_focused">@color/monet_light_text_accent</color>
+
     <color name="monet_light_hr" />
-    <color name="monet_light_text_primary" />
-    <color name="monet_light_text_secondary" />
-    <color name="monet_light_text_tertiary" />
+    <color name="monet_light_text_primary">@color/text_primary_light</color>
+    <color name="monet_light_text_secondary">@color/text_secondary_light</color>
+    <color name="monet_light_text_tertiary">@color/text_tertiary_light</color>
+    <color name="monet_light_text_accent">@color/text_accent_light</color>
     <color name="monet_light_text_disabled" />
-    <color name="monet_light_text_accent" />
     <color name="monet_light_snackbar_text" />
     <color name="monet_light_fab_ripple" />
 
     <color name="monet_light_alarm_enabled" />
-    <color name="monet_light_alarm_pressed" />
+    <color name="monet_light_alarm_pressed">@color/alarm_pressed_light</color>
     <color name="monet_light_alarm_enabled_bg" />
     <color name="monet_light_alarm_disabled_bg" />
     <color name="monet_light_alarm_disabled_stroke" />

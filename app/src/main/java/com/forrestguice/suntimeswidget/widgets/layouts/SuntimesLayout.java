@@ -201,6 +201,7 @@ public abstract class SuntimesLayout
         int limit = 1000;
 
         while ((timeBounds.width() + suffixBounds.width() + adjustedIconWidthPx) < maxWidthPixels                         // scale up to fill width
+                && timeBounds.height() < maxHeightPixels
                 && (adjustedTimeSizeSp < timeSizeMaxSp || timeSizeMaxSp == -1))
         {
             adjustedTimeSizeSp += stepSizeSp;
@@ -217,6 +218,19 @@ public abstract class SuntimesLayout
         }
 
         c = 0;
+        while ((timeBounds.width() + suffixBounds.width() + adjustedIconWidthPx) < maxWidthPixels                         // again, this time icon only
+                && timeBounds.height() < maxHeightPixels)
+        {
+            adjustedIconWidthDp += stepSizeSp * iconRatio;
+            adjustedIconWidthPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, adjustedIconWidthDp, context.getResources().getDisplayMetrics());
+
+            if (c > limit) {
+                Log.w("SuntimesLayout", "adjustTextSize stuck in a loop.. breaking [0]");
+                break;
+            } else c++;
+        }
+
+        /*c = 0;
         while (timeBounds.height() > maxHeightPixels)
         {
             adjustedTimeSizeSp -= stepSizeSp;
@@ -224,19 +238,20 @@ public abstract class SuntimesLayout
             adjustedIconWidthDp -= (stepSizeSp * iconRatio);
             getTextBounds(context,  timeText, adjustedTimeSizeSp, timePaint, timeBounds);
             getTextBounds(context, suffixText, adjustedSuffixSizeSp, suffixPaint, suffixBounds);
+            Log.d("DEBUG", "decreasing size: " + timeBounds.height() + " <? " + maxHeightPixels + " (" + maxHeightDp + ")");
 
             if (c > limit) {
                 Log.w("SuntimesLayout", "adjustTextSize stuck in a loop.. breaking [1] .. " + timeBounds.height() + "px > " + maxHeightPixels + "px [" + maxHeightDp + "dp]");
                 break;
             } else c++;
-        }
+        }*/
 
         float[] retValue = new float[3];
         retValue[0] = adjustedTimeSizeSp;
         retValue[1] = adjustedSuffixSizeSp;
         retValue[2] = adjustedIconWidthDp;
 
-        //Log.d("ClockLayout", "adjustTextSize: within " + maxDimensionsDp[0] + "," + maxDimensionsDp[1] + " .. baseSp:" + timeSizeSp + ", adjustedSp:" + retValue[0] + ", baseIconDp: " + iconWidthDp +  ", adjustedIconDp: " + retValue[2]);
+        Log.d("ClockLayout", "adjustTextSize: within " + maxDimensionsDp[0] + "," + maxDimensionsDp[1] + " .. baseSp:" + timeSizeSp + ", adjustedSp:" + retValue[0] + ", baseIconDp: " + iconWidthDp +  ", adjustedIconDp: " + retValue[2]);
         return retValue;
     }
 

@@ -493,18 +493,34 @@ public class SuntimesWidget0 extends AppWidgetProvider
         if (Build.VERSION.SDK_INT >= 16)
         {
             Bundle widgetOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
-            int[]  sizePortrait = { widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH),   // dp values
+            /*int[]  sizePortrait = { widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH),   // dp values
                     widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT) };
             int[]  sizeLandscape = { widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH),
                     widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT) };
+
+            mustFitWithinDp[0] = Math.min( sizePortrait[0], sizeLandscape[0] );
+            mustFitWithinDp[1] = Math.min( sizePortrait[1], sizeLandscape[1] );*/
 
             //Log.d("widgetSizeDp", "portrait:  [" + sizePortrait[0] + ", " + sizePortrait[1] + "]");
             //Log.d("widgetSizeDp", "landscape: [" + sizeLandscape[0] + ", " + sizeLandscape[1] + "]");
             //Toast toast = Toast.makeText(context, "[" + sizePortrait[0] + ", " + sizePortrait[1] + "]; " + "[" + sizeLandscape[0] + ", " + sizeLandscape[1] + "]", Toast.LENGTH_SHORT);
             //toast.show();
 
-            mustFitWithinDp[0] = Math.min( sizePortrait[0], sizeLandscape[0] );
-            mustFitWithinDp[1] = Math.min( sizePortrait[1], sizeLandscape[1] );
+            /*int[] width = { widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH),   // dp values   ... and inconsistent behavior between Android versions
+                            widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH) };
+
+            int[] height = { widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT),   // dp values
+                             widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT) };
+
+            mustFitWithinDp[0] = Math.min( width[0], width[1] );
+            mustFitWithinDp[1] = Math.min( height[0], height[1] );*/
+
+            mustFitWithinDp[0] = widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
+            mustFitWithinDp[1] = widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
+            Log.d("widgetSizeDp", "width:  [" + widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH) + ", " + widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH) + "]");
+            Log.d("widgetSizeDp", "height:  [" + widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT) + ", " + widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT) + "]");
+
+
             Log.d("widgetSizeDp", "1: must fit:  [" + mustFitWithinDp[0] + ", " + mustFitWithinDp[1] + "]");
         }
         return mustFitWithinDp;
@@ -686,28 +702,9 @@ public class SuntimesWidget0 extends AppWidgetProvider
             updateLocationToLastKnown(context, appWidgetId);
         }
 
-        SuntimesRiseSetData data = getRiseSetData(context, appWidgetId);
-        data.calculate(context);
-
-        boolean showSolarNoon = WidgetSettings.loadShowNoonPref(context, appWidgetId);
-        if (showSolarNoon)
-        {
-            SuntimesRiseSetData noonData = new SuntimesRiseSetData(data);
-            noonData.setTimeMode(TimeMode.NOON);
-            noonData.calculate(context);
-            data.linkData(noonData);
-        }
-
-        layout.prepareForUpdate(context, appWidgetId, data);
-
-        RemoteViews views = layout.getViews(context);
+        SuntimesRiseSetData data = createRiseSetData(context, appWidgetId);
+        RemoteViews views = createRemoteViews(context, appWidgetId, data, layout);
         views.setOnClickPendingIntent(R.id.widgetframe_inner, SuntimesWidget0.clickActionIntent(context, appWidgetId, widgetClass));
-
-        boolean showTitle = WidgetSettings.loadShowTitlePref(context, appWidgetId);
-        views.setViewVisibility(R.id.text_title, showTitle ? View.VISIBLE : View.GONE);
-
-        layout.themeViews(context, views, appWidgetId);
-        layout.updateViews(context, appWidgetId, views, data);
         updater.updateAppWidget(context, appWidgetId, views);
 
         if (!layout.saveNextSuggestedUpdate(context, appWidgetId))
@@ -726,6 +723,33 @@ public class SuntimesWidget0 extends AppWidgetProvider
                 Log.d(TAG, "saveNextSuggestedUpdate: " + utils.calendarDateTimeDisplayString(AndroidResources.wrap(context), soonest).toString());
             }
         }
+    }
+
+    protected static RemoteViews createRemoteViews(Context context, int appWidgetId, SuntimesRiseSetData data, SunLayout layout)
+    {
+        layout.prepareForUpdate(context, appWidgetId, data);
+        RemoteViews views = layout.getViews(context);
+        boolean showTitle = WidgetSettings.loadShowTitlePref(context, appWidgetId);
+        views.setViewVisibility(R.id.text_title, showTitle ? View.VISIBLE : View.GONE);
+        layout.themeViews(context, views, appWidgetId);
+        layout.updateViews(context, appWidgetId, views, data);
+        return views;
+    }
+
+    protected static SuntimesRiseSetData createRiseSetData(Context context, int appWidgetId)
+    {
+        SuntimesRiseSetData data = getRiseSetData(context, appWidgetId);
+        data.calculate(context);
+
+        boolean showSolarNoon = WidgetSettings.loadShowNoonPref(context, appWidgetId);
+        if (showSolarNoon)
+        {
+            SuntimesRiseSetData noonData = new SuntimesRiseSetData(data);
+            noonData.setTimeMode(TimeMode.NOON);
+            noonData.calculate(context);
+            data.linkData(noonData);
+        }
+        return data;
     }
 
     /**

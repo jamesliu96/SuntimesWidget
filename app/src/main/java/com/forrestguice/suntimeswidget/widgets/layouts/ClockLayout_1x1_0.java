@@ -43,6 +43,7 @@ import com.forrestguice.suntimeswidget.calendar.CalendarSettingsInterface;
 import com.forrestguice.suntimeswidget.settings.WidgetSettings;
 import com.forrestguice.suntimeswidget.themes.SuntimesTheme;
 import com.forrestguice.suntimeswidget.views.SpanUtils;
+import com.forrestguice.suntimeswidget.widgets.ClockWidgetSettings;
 import com.forrestguice.util.android.AndroidResources;
 import com.forrestguice.util.text.TimeDisplayText;
 
@@ -86,7 +87,7 @@ public class ClockLayout_1x1_0 extends ClockLayout
         TimeDisplayText nowText = time_utils.calendarTimeShortDisplayString(AndroidResources.wrap(context), now, false, timeFormat);
         String nowString = nowText.getValue();
 
-        CharSequence nowChars = (boldTime ? SpanUtils.createBoldSpan(null, nowString, nowString) : nowString);
+        CharSequence nowChars = (boldTime(context, appWidgetId) ? SpanUtils.createBoldSpan(null, nowString, nowString) : nowString);
         views.setTextViewText(R.id.text_time, nowChars);
         views.setTextViewText(R.id.text_time_suffix, nowText.getSuffix());
     }
@@ -99,6 +100,10 @@ public class ClockLayout_1x1_0 extends ClockLayout
     public void updateViews(Context context, int appWidgetId, RemoteViews views, SuntimesClockData data)
     {
         super.updateViews(context, appWidgetId, views, data);
+
+        int timeColor1 = ClockWidgetSettings.loadClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_COLOR, timeColor);
+        views.setTextColor(R.id.text_time, timeColor1);
+        views.setTextColor(R.id.text_date, timeColor1);
 
         boolean showLabels = WidgetSettings.loadShowLabelsPref(context, appWidgetId);
         views.setViewVisibility(R.id.text_time_extras, showLabels ? View.VISIBLE : View.GONE);
@@ -182,7 +187,7 @@ public class ClockLayout_1x1_0 extends ClockLayout
                     //(maxDimensionsDp[1] - (paddingDp[1] + paddingDp[3]) - ((int)titleSizeSp * showTitle)) - ((int)textSizeSp * (showDate ? 1 : 0)) };
                     //(maxDimensionsDp[1] - (paddingDp[1] + paddingDp[3]) - ((int)titleSizeSp * showTitle)) };
 
-                    adjustedSizeSp0 = adjustTextSize(context, maxDp, paddingDp, "sans-serif", boldTime, "00:00", timeSizeSp, maxSp, "MM", suffixSizeSp);
+                    adjustedSizeSp0 = adjustTextSize(context, maxDp, paddingDp, "sans-serif", boldTime(context, appWidgetId), "00:00", timeSizeSp, maxSp, "MM", suffixSizeSp);
                     if (adjustedSizeSp0[0] != timeSizeSp) {
                         views.setTextViewTextSize(R.id.text_time, TypedValue.COMPLEX_UNIT_DIP, adjustedSizeSp0[0]);
                         views.setTextViewTextSize(R.id.text_time_suffix, TypedValue.COMPLEX_UNIT_DIP, adjustedSizeSp0[1]);
@@ -192,7 +197,7 @@ public class ClockLayout_1x1_0 extends ClockLayout
                         maxSp *= 0.25f;
                         maxDp = new int[] { maxDimensionsDp[0] - (paddingDp[0] + paddingDp[2]),
                                 (maxDimensionsDp[1] - (paddingDp[1] + paddingDp[3]) - ((int)titleSizeSp * showTitle) - (int)adjustedSizeSp0[0]) };
-                        adjustedSizeSp1 = adjustTextSize(context, maxDp, paddingDp, "sans-serif", boldTime, dateString, textSizeSp, maxSp, "", 0);
+                        adjustedSizeSp1 = adjustTextSize(context, maxDp, paddingDp, "sans-serif", boldTime(context, appWidgetId), dateString, textSizeSp, maxSp, "", 0);
                         if (adjustedSizeSp1[0] != textSizeSp) {
                             views.setTextViewTextSize(R.id.text_date, TypedValue.COMPLEX_UNIT_DIP, adjustedSizeSp1[0]);
                             rescale = true;
@@ -207,11 +212,16 @@ public class ClockLayout_1x1_0 extends ClockLayout
     protected int timeColor = Color.WHITE;
     protected int textColor = Color.WHITE;
     protected int suffixColor = Color.GRAY;
-    protected boolean boldTime = false;
+
     protected float titleSizeSp = 10;
     protected float timeSizeSp = 12;
     protected float textSizeSp = 12;
     protected float suffixSizeSp = 8;
+
+    protected boolean boldTime = false;
+    protected boolean boldTime(Context context, int appWidgetId) {
+        return ClockWidgetSettings.loadClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_BOLD, boldTime);
+    }
 
     @Override
     public void themeViews(Context context, RemoteViews views, SuntimesTheme theme)
@@ -223,10 +233,8 @@ public class ClockLayout_1x1_0 extends ClockLayout
         boldTime = theme.getTimeBold();
         paddingDp = theme.getPadding();
 
-        views.setTextColor(R.id.text_time, timeColor);
         views.setTextColor(R.id.text_time_suffix, suffixColor);
         views.setTextColor(R.id.text_time_extras, textColor);
-        views.setTextColor(R.id.text_date, timeColor);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
         {

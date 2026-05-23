@@ -30,6 +30,8 @@ import com.forrestguice.suntimeswidget.themes.WidgetThemeConfigActivity;
 import com.forrestguice.suntimeswidget.widgets.layouts.MoonLayout;
 import com.forrestguice.suntimeswidget.widgets.layouts.MoonLayout_3x1_0;
 
+import static com.forrestguice.suntimeswidget.settings.WidgetSettings.SIZE_3x1;
+
 public class MoonWidget0ConfigActivity_3x1 extends MoonWidget0ConfigActivity
 {
     public MoonWidget0ConfigActivity_3x1()

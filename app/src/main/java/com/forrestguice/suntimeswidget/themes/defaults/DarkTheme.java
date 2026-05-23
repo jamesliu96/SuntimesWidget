@@ -32,7 +32,7 @@ public class DarkTheme extends SuntimesTheme
     public static final int THEMEDEF_VERSION = BuildConfig.VERSION_CODE;
     private static ThemeDescriptor THEMEDEF_DESCRIPTOR = null;
 
-    public static final ThemeBackground THEMEDEF_BACKGROUND = ThemeBackground.DARK;
+    public static final ThemeBackground THEMEDEF_BACKGROUND = ThemeBackground.DARK_HOLO;
     public static final int THEMEDEF_BACKGROUND_COLOR_ID = R.color.widget_bg_dark;
     public static final int[] THEMEDEF_PADDING = {2, 4, 4, 4};
 
@@ -167,7 +167,7 @@ public class DarkTheme extends SuntimesTheme
     public static ThemeDescriptor themeDescriptor(Context context)
     {
         if (THEMEDEF_DESCRIPTOR == null) {
-            THEMEDEF_DESCRIPTOR = new ThemeDescriptor(THEMEDEF_NAME, context.getString(R.string.themes_widgetThemes_dark1), THEMEDEF_VERSION, ThemeBackground.DARK.name(), Color.DKGRAY);
+            THEMEDEF_DESCRIPTOR = new ThemeDescriptor(THEMEDEF_NAME, context.getString(R.string.themes_widgetThemes_dark1), THEMEDEF_VERSION, ThemeBackground.DARK_HOLO.name(), Color.DKGRAY);
         }
         return THEMEDEF_DESCRIPTOR;
     }

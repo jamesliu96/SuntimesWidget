@@ -113,7 +113,7 @@ public class SuntimesThemeTest extends SuntimesActivityTestBase
     public static final String TESTDEF_NAME = "test";
     public static final String TESTDEF_DISPLAYSTRING = "Test";
     public static final int TESTDEF_VERSION = 1;
-    public static final SuntimesTheme.ThemeBackground TESTDEF_BACKGROUND = SuntimesTheme.ThemeBackground.DARK;
+    public static final SuntimesTheme.ThemeBackground TESTDEF_BACKGROUND = SuntimesTheme.ThemeBackground.DARK_HOLO;
     public static final int[] TESTDEF_PADDING = {1, 2, 3, 4};
     public static final float TESTDEF_TITLESIZE = 10;
     public static final float TESTDEF_TEXTSIZE = 10;
@@ -170,7 +170,7 @@ public class SuntimesThemeTest extends SuntimesActivityTestBase
         @Override
         public ThemeDescriptor themeDescriptor()
         {
-            return new ThemeDescriptor(TESTDEF_NAME, TESTDEF_DISPLAYSTRING, TESTDEF_VERSION, SuntimesTheme.ThemeBackground.DARK.name(), Color.RED);
+            return new ThemeDescriptor(TESTDEF_NAME, TESTDEF_DISPLAYSTRING, TESTDEF_VERSION, SuntimesTheme.ThemeBackground.DARK_HOLO.name(), Color.RED);
         }
     }
 

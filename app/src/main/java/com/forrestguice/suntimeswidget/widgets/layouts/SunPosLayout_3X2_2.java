@@ -26,6 +26,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import com.forrestguice.annotation.Nullable;
 import com.forrestguice.suntimeswidget.R;
 import com.forrestguice.suntimeswidget.SuntimesUtils;
 import com.forrestguice.suntimeswidget.calculator.SuntimesRiseSetDataset;
@@ -87,7 +88,7 @@ public class SunPosLayout_3X2_2 extends SunPosLayout
     }
 
     @Override
-    public void prepareForUpdate(Context context, int appWidgetId, SuntimesRiseSetDataset dataset, int[] widgetSize)
+    public void prepareForUpdate(Context context, int appWidgetId, SuntimesRiseSetDataset dataset, @Nullable int[] widgetSize)
     {
         super.prepareForUpdate(context, appWidgetId, dataset, widgetSize);
 
@@ -95,8 +96,10 @@ public class SunPosLayout_3X2_2 extends SunPosLayout
         this.layoutID = chooseLayout(position);
         if (Build.VERSION.SDK_INT >= 16)
         {
-            this.dpWidth = widgetSize[0];
-            this.dpHeight = (int)(1.5 * widgetSize[1]);
+            if (widgetSize != null) {
+                this.dpWidth = widgetSize[0];
+                this.dpHeight = (int) (1.5 * widgetSize[1]);
+            }
         }
     }
 
@@ -150,7 +153,7 @@ public class SunPosLayout_3X2_2 extends SunPosLayout
         super.themeViews(context, views, theme);
         options = new LightGraphOptions(AndroidResources.wrap(context));
 
-        options.colors = LightGraphColorValues.getColorDefaults(AndroidResources.wrap(context), (theme.getBackground() == SuntimesTheme.ThemeBackground.DARK));
+        options.colors = LightGraphColorValues.getColorDefaults(AndroidResources.wrap(context), (theme.getBackground() == SuntimesTheme.ThemeBackground.DARK_HOLO));
         options.colors.setColor(COLOR_DAY, theme.getDayColor());
         options.colors.setColor(COLOR_CIVIL, theme.getCivilColor());
         options.colors.setColor(COLOR_NAUTICAL, theme.getNauticalColor());
