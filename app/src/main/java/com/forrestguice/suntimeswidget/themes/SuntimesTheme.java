@@ -1238,20 +1238,18 @@ public class SuntimesTheme
         COLOR(-1, "Colour", true),
 
         DARK_HOLO(R.drawable.bg_widget_dark, "Dark (Holo)", false),
-
         DARK_MD2(R.drawable.md2_bg_widget_dark, "Dark (MD2)", false),
         DARK_MD2_T(R.drawable.md2_bg_widget_dark_t, "Dark (MD2) (T)", false),
-
         DARK_MONET(R.drawable.monet_bg_widget_dark, "Dark (Material)", false),
         DARK_MONET_T(R.drawable.monet_bg_widget_dark_t, "Dark (Material) (T)", false),
 
         LIGHT_HOLO(R.drawable.bg_widget, "Light (Holo)", false),
-
         LIGHT_MD2(R.drawable.md2_bg_widget_light, "Light (MD2)", false),
         LIGHT_MD2_T(R.drawable.md2_bg_widget_light_t, "Light (MD2) (T)", false),
-
         LIGHT_MONET(R.drawable.monet_bg_widget_light, "Light (Material)", false),
         LIGHT_MONET_T(R.drawable.monet_bg_widget_light_t, "Light (Material) (T)", false),
+
+        SYSTEM_MONET(R.drawable.monet_bg_widget_sys, "System (Material)", false),
 
         TRANSPARENT(R.drawable.bg_widget_trans, "Transparent", false),
         ;

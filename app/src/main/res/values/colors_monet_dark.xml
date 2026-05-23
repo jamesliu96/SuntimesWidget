@@ -17,6 +17,10 @@
     <color name="monet_dark_chip_tray_bg" />
     <color name="monet_dark_menu_bg" />
 
+    <color name="monet_dark_widget_bg">@color/monet_light_card_bg</color>
+    <color name="monet_dark_widget_pressed">@color/monet_dark_alarm_pressed</color>
+    <color name="monet_dark_widget_focused">@color/monet_dark_text_accent</color>
+
     <color name="monet_dark_hr" />
     <color name="monet_dark_text_primary">@color/text_primary_dark</color>
     <color name="monet_dark_text_secondary">@color/text_secondary_dark</color>

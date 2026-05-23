@@ -17,6 +17,10 @@
     <color name="monet_light_chip_tray_bg" />
     <color name="monet_light_menu_bg" />
 
+    <color name="monet_light_widget_bg">@color/monet_light_card_bg</color>
+    <color name="monet_light_widget_pressed">@color/monet_light_alarm_pressed</color>
+    <color name="monet_light_widget_focused">@color/monet_light_text_accent</color>
+
     <color name="monet_light_hr" />
     <color name="monet_light_text_primary">@color/text_primary_light</color>
     <color name="monet_light_text_secondary">@color/text_secondary_light</color>
