@@ -68,6 +68,7 @@ import com.forrestguice.suntimeswidget.themes.defaults.LightThemeMD2T;
 import com.forrestguice.suntimeswidget.themes.defaults.LightThemeMD3;
 import com.forrestguice.suntimeswidget.themes.defaults.LightThemeMD3T;
 import com.forrestguice.suntimeswidget.themes.defaults.LightThemeTrans;
+import com.forrestguice.suntimeswidget.themes.defaults.SystemThemeMD3;
 import com.forrestguice.suntimeswidget.views.SpanUtils;
 import com.forrestguice.util.android.AndroidResources;
 import com.forrestguice.util.text.TimeDisplayText;
@@ -112,6 +113,7 @@ public class WidgetThemes
                 LightThemeMD2.themeDescriptor(context),           // 12
                 DarkThemeMD2T.themeDescriptor(context),           // 13
                 LightThemeMD2T.themeDescriptor(context),           // 14
+                SystemThemeMD3.themeDescriptor(context)            // 15
         };
         Class<?>[] defThemeClasses = new Class[] {
                 LightTheme.class,                                  // 0
@@ -129,6 +131,7 @@ public class WidgetThemes
                 LightThemeMD2.class,                              // 12
                 DarkThemeMD2T.class,                              // 13
                 LightThemeMD2T.class,                              // 14
+                SystemThemeMD3.class                               // 15
         };
 
         defaultThemes.clear();

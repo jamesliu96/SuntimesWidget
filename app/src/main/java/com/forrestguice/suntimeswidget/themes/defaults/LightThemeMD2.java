@@ -35,6 +35,8 @@ public class LightThemeMD2 extends LightTheme1
     public static final int THEMEDEF_BACKGROUND_COLOR_ID = R.color.card_bg_light;
     public static final int[] THEMEDEF_PADDING = {8, 8, 8, 8};
 
+    public static final int THEMEDEF_TIMECOLOR_ID = R.color.text_accent_light;
+
     //public static final float THEMEDEF_TITLESIZE = 14;
     //public static final float THEMEDEF_TEXTSIZE = 14;
     //public static final float THEMEDEF_TIMESIZE = 16;
@@ -53,7 +55,8 @@ public class LightThemeMD2 extends LightTheme1
         this.themeBackgroundColor = ContextCompat.getColor(context, THEMEDEF_BACKGROUND_COLOR_ID);
         this.themePadding = THEMEDEF_PADDING;
 
-        //this.themeTimeColor = ContextCompat.getColor(context, R.color.monet_dark_text_primary);
+        this.themeTimeColor = ContextCompat.getColor(context, THEMEDEF_TIMECOLOR_ID);
+        
         //this.themeTimeSuffixColor = ContextCompat.getColor(context, R.color.monet_dark_text_secondary);
         //this.themeTextColor = ContextCompat.getColor(context, R.color.monet_dark_text_secondary);
         //this.themeAccentColor = ContextCompat.getColor(context, R.color.monet_dark_text_accent);

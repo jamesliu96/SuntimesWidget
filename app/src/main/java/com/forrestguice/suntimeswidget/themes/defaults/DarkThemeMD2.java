@@ -35,10 +35,12 @@ public class DarkThemeMD2 extends DarkTheme1
     public static final int THEMEDEF_BACKGROUND_COLOR_ID = R.color.monet_dark_card_bg;
     public static final int[] THEMEDEF_PADDING = {8, 8, 8, 8};
 
-    //public static final float THEMEDEF_TITLESIZE = 14;
-    //public static final float THEMEDEF_TEXTSIZE = 14;
-    //public static final float THEMEDEF_TIMESIZE = 16;
-    //public static final float THEMEDEF_TIMESUFFIXSIZE = 8;
+    public static final int THEMEDEF_TIMECOLOR_ID = R.color.text_accent_dark;
+
+    //public static final float THEMEDEF_TITLESIZE = 14;  //12
+    //public static final float THEMEDEF_TEXTSIZE = 14;  /12
+    //public static final float THEMEDEF_TIMESIZE = 16;  //14
+    //public static final float THEMEDEF_TIMESUFFIXSIZE = 8;  //8
 
     public DarkThemeMD2(Context context)
     {
@@ -53,10 +55,7 @@ public class DarkThemeMD2 extends DarkTheme1
         this.themeBackgroundColor = ContextCompat.getColor(context, THEMEDEF_BACKGROUND_COLOR_ID);
         this.themePadding = THEMEDEF_PADDING;
 
-        //this.themeTimeColor = ContextCompat.getColor(context, R.color.monet_dark_text_primary);
-        //this.themeTimeSuffixColor = ContextCompat.getColor(context, R.color.monet_dark_text_secondary);
-        //this.themeTextColor = ContextCompat.getColor(context, R.color.monet_dark_text_secondary);
-        //this.themeAccentColor = ContextCompat.getColor(context, R.color.monet_dark_text_accent);
+        this.themeTimeColor = ContextCompat.getColor(context, THEMEDEF_TIMECOLOR_ID);
 
         //this.themeTitleSize = THEMEDEF_TITLESIZE;
         //this.themeTextSize = THEMEDEF_TEXTSIZE;

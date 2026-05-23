@@ -53,7 +53,7 @@ public class DarkThemeMD3 extends DarkTheme1
         this.themeBackgroundColor = ContextCompat.getColor(context, THEMEDEF_BACKGROUND_COLOR_ID);
         this.themePadding = THEMEDEF_PADDING;
 
-        this.themeTimeColor = ContextCompat.getColor(context, R.color.monet_dark_text_primary);
+        this.themeTimeColor = ContextCompat.getColor(context, R.color.monet_dark_text_accent);
         this.themeTimeSuffixColor = ContextCompat.getColor(context, R.color.monet_dark_text_secondary);
         this.themeTextColor = ContextCompat.getColor(context, R.color.monet_dark_text_secondary);
         this.themeAccentColor = ContextCompat.getColor(context, R.color.monet_dark_text_accent);
