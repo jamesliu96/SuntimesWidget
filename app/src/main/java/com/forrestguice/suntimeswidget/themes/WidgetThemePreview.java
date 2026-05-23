@@ -112,6 +112,7 @@ import static com.forrestguice.suntimeswidget.graph.LightMapDialog.PREF_KEY_GRAP
 import static com.forrestguice.suntimeswidget.graph.LightGraphDialog.MAPTAG_LIGHTGRAPH;
 import static com.forrestguice.suntimeswidget.map.WorldMapWidgetSettings.PREF_DEF_GRAPH_SUNSYMBOL;
 
+@Deprecated
 public class WidgetThemePreview
 {
     public WidgetThemePreview(@NonNull Context context, @NonNull ExecutorProvider executor, int appWidgetId) {

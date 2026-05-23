@@ -25,6 +25,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 
+import com.forrestguice.annotation.Nullable;
 import com.forrestguice.suntimeswidget.map.WorldMapOptions;
 import com.forrestguice.suntimeswidget.map.WorldMapProjection;
 import com.forrestguice.support.content.ContextCompat;
@@ -63,14 +64,16 @@ public class SunPosLayout_3X2_0 extends SunPosLayout
     }
 
     @Override
-    public void prepareForUpdate(Context context, int appWidgetId, SuntimesRiseSetDataset dataset, int[] widgetSize)
+    public void prepareForUpdate(Context context, int appWidgetId, SuntimesRiseSetDataset dataset, @Nullable int[] widgetSize)
     {
         super.prepareForUpdate(context, appWidgetId, dataset, widgetSize);
 
         if (Build.VERSION.SDK_INT >= 16)
         {
-            this.dpWidth = widgetSize[0];
-            this.dpHeight = widgetSize[1];
+            if (widgetSize != null) {
+                this.dpWidth = widgetSize[0];
+                this.dpHeight = widgetSize[1];
+            }
         }
     }
 
@@ -209,7 +212,7 @@ public class SunPosLayout_3X2_0 extends SunPosLayout
     }
 
     public WorldMapWidgetSettings.WorldMapWidgetMode getMapMode(Context context, int appWidgetId) {
-        return WorldMapWidgetSettings.loadSunPosMapModePref(context, appWidgetId, getMapTag());
+        return (mapMode != null ? mapMode : WorldMapWidgetSettings.loadSunPosMapModePref(context, appWidgetId, getMapTag()));
     }
 
     public String getMapTag()

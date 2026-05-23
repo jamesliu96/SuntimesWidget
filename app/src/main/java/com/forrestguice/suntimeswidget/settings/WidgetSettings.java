@@ -51,8 +51,19 @@ import com.forrestguice.suntimeswidget.calculator.settings.display.LengthUnitDis
 import com.forrestguice.suntimeswidget.calendar.CalendarSettings;
 import com.forrestguice.suntimeswidget.events.EventSettings;
 import com.forrestguice.suntimeswidget.getfix.LocationHelperSettings;
+import com.forrestguice.suntimeswidget.themes.defaults.DarkTheme1;
+import com.forrestguice.suntimeswidget.widgets.AlarmWidget0_2x2;
 import com.forrestguice.suntimeswidget.widgets.AlarmWidgetSettings;
 import com.forrestguice.suntimeswidget.widgets.ClockWidgetSettings;
+import com.forrestguice.suntimeswidget.widgets.MoonWidget0;
+import com.forrestguice.suntimeswidget.widgets.MoonWidget0_2x1;
+import com.forrestguice.suntimeswidget.widgets.MoonWidget0_3x1;
+import com.forrestguice.suntimeswidget.widgets.SuntimesWidget0;
+import com.forrestguice.suntimeswidget.widgets.SuntimesWidget0_2x1;
+import com.forrestguice.suntimeswidget.widgets.SuntimesWidget0_3x1;
+import com.forrestguice.suntimeswidget.widgets.SuntimesWidget2;
+import com.forrestguice.suntimeswidget.widgets.SuntimesWidget2_3x1;
+import com.forrestguice.suntimeswidget.widgets.SuntimesWidget2_3x2;
 import com.forrestguice.suntimeswidget.widgets.layouts.MoonLayout;
 import com.forrestguice.suntimeswidget.widgets.layouts.MoonLayout_1x1_0;
 import com.forrestguice.suntimeswidget.widgets.layouts.MoonLayout_1x1_1;
@@ -64,10 +75,15 @@ import com.forrestguice.suntimeswidget.widgets.layouts.MoonLayout_1x1_6;
 import com.forrestguice.suntimeswidget.widgets.layouts.MoonLayout_1x1_7;
 import com.forrestguice.suntimeswidget.widgets.layouts.MoonLayout_1x1_8;
 import com.forrestguice.suntimeswidget.widgets.layouts.MoonLayout_1x1_9;
+import com.forrestguice.suntimeswidget.widgets.layouts.MoonLayout_2x1_0;
+import com.forrestguice.suntimeswidget.widgets.layouts.MoonLayout_3x1_0;
 import com.forrestguice.suntimeswidget.widgets.layouts.SunLayout;
 import com.forrestguice.suntimeswidget.widgets.layouts.SunLayout_1x1_0;
 import com.forrestguice.suntimeswidget.widgets.layouts.SunLayout_1x1_1;
 import com.forrestguice.suntimeswidget.widgets.layouts.SunLayout_1x1_2;
+import com.forrestguice.suntimeswidget.widgets.layouts.SunLayout_1x1_4;
+import com.forrestguice.suntimeswidget.widgets.layouts.SunLayout_2x1_0;
+import com.forrestguice.suntimeswidget.widgets.layouts.SunLayout_3x1_0;
 import com.forrestguice.suntimeswidget.widgets.layouts.SunPosLayout;
 import com.forrestguice.suntimeswidget.widgets.layouts.SunPosLayout_1X1_0;
 import com.forrestguice.suntimeswidget.widgets.layouts.SunPosLayout_1X1_1;
@@ -80,6 +96,7 @@ import com.forrestguice.suntimeswidget.widgets.layouts.SunPosLayout_3X2_1;
 import com.forrestguice.suntimeswidget.themes.defaults.DarkTheme;
 import com.forrestguice.suntimeswidget.themes.SuntimesTheme;
 import com.forrestguice.suntimeswidget.widgets.layouts.SunPosLayout_3X2_2;
+import com.forrestguice.suntimeswidget.widgets.layouts.SuntimesLayout;
 import com.forrestguice.util.android.AndroidResources;
 import com.forrestguice.util.prefs.PrefTypeInfo;
 
@@ -112,7 +129,7 @@ public class WidgetSettings
                                                                                    new String[] {"moon", PREF_DEF_GENERAL_CALCULATOR_MOON} };
 
     public static final String PREF_KEY_APPEARANCE_THEME = "theme";
-    public static final String PREF_DEF_APPEARANCE_THEME = DarkTheme.THEMEDEF_NAME;
+    public static final String PREF_DEF_APPEARANCE_THEME = DarkTheme1.THEMEDEF_NAME;   // overriden by `def_appwidget_0_appearance_theme`
 
     public static final String PREF_KEY_APPEARANCE_SHOWTITLE = "showtitle";
     public static final boolean PREF_DEF_APPEARANCE_SHOWTITLE = false;
@@ -500,8 +517,22 @@ public class WidgetSettings
         ActionMode.ONTAP_FLIPTO_NEXTITEM.setDisplayString(context.getString(R.string.actionMode_flipToNextItem));
     }
 
+    public static final String SIZE_1x1 = "1x1";
+    public static final String SIZE_1x2 = "1x2";
+    public static final String SIZE_1x3 = "1x3";
+    public static final String SIZE_2x1 = "2x1";
+    public static final String SIZE_2x2 = "2x2";
+    public static final String SIZE_2x3 = "2x3";
+    public static final String SIZE_3x1 = "3x1";
+    public static final String SIZE_3x2 = "3x2";
+    public static final String SIZE_3x3 = "3x3";
+
     public interface WidgetModeDisplay
     {
+        String getWidgetSize();
+        Class<?> getWidgetClass();
+        SuntimesLayout getWidgetLayout();
+
         int getLayoutID();
         String getDisplayString();
         String name();
@@ -512,18 +543,34 @@ public class WidgetSettings
      */
     public static enum WidgetModeSun1x1 implements WidgetModeDisplay
     {
-        WIDGETMODE1x1_SUNRISE("Sunrise only", R.layout.layout_widget_1x1_1),
-        WIDGETMODE1x1_SUNSET("Sunset only", R.layout.layout_widget_1x1_2),
-        WIDGETMODE1x1_BOTH_1("Sunrise & Sunset (1)", R.layout.layout_widget_1x1_0),
-        WIDGETMODE1x1_BOTH_2("Sunrise & Sunset (2)", R.layout.layout_widget_1x1_3);
+        WIDGETMODE1x1_SUNRISE("Sunrise only", R.layout.layout_widget_1x1_1, new SunLayout_1x1_1()),
+        WIDGETMODE1x1_SUNSET("Sunset only", R.layout.layout_widget_1x1_2, new SunLayout_1x1_2()),
+        WIDGETMODE1x1_BOTH_1("Sunrise & Sunset", R.layout.layout_widget_1x1_0, new SunLayout_1x1_0());
 
+        private final SuntimesLayout layout;
         private final int layoutID;
         private String displayString;
 
-        private WidgetModeSun1x1(@NonNull String displayString, int layoutID)
+        private WidgetModeSun1x1(@NonNull String displayString, int layoutID, SunLayout layout)
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+            this.layout = layout;
+        }
+
+        @Override
+        public String getWidgetSize() {
+            return SIZE_1x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return SuntimesWidget0.class;
+        }
+
+        @Override
+        public SuntimesLayout getWidgetLayout() {
+            return layout;
         }
 
         public int getLayoutID()
@@ -553,7 +600,6 @@ public class WidgetSettings
             WIDGETMODE1x1_SUNRISE.setDisplayString(context.getString(R.string.widgetMode1x1_sunrise));
             WIDGETMODE1x1_SUNSET.setDisplayString(context.getString(R.string.widgetMode1x1_sunset));
             WIDGETMODE1x1_BOTH_1.setDisplayString(context.getString(R.string.widgetMode1x1_both_1));
-            WIDGETMODE1x1_BOTH_2.setDisplayString(context.getString(R.string.widgetMode1x1_both_2));
         }
 
         public static boolean supportsLayout(int layoutID)
@@ -572,15 +618,32 @@ public class WidgetSettings
      */
     public static enum WidgetModeSun2x1 implements WidgetModeDisplay
     {
-        WIDGETMODE2x1_BOTH_1("Sunrise & Sunset", R.layout.layout_widget_2x1_0);
+        WIDGETMODE2x1_BOTH_1("Sunrise & Sunset", R.layout.layout_widget_2x1_0, new SunLayout_2x1_0());
 
+        private final SuntimesLayout layout;
         private final int layoutID;
         private String displayString;
 
-        private WidgetModeSun2x1(@NonNull String displayString, int layoutID)
+        private WidgetModeSun2x1(@NonNull String displayString, int layoutID, SunLayout layout)
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+            this.layout = layout;
+        }
+
+        @Override
+        public String getWidgetSize() {
+            return SIZE_2x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return SuntimesWidget0_2x1.class;
+        }
+
+        @Override
+        public SuntimesLayout getWidgetLayout() {
+            return layout;
         }
 
         public int getLayoutID()
@@ -625,15 +688,33 @@ public class WidgetSettings
      */
     public static enum WidgetModeSun3x1 implements WidgetModeDisplay
     {
-        WIDGETMODE3x1_BOTH_1("Sunrise, Noon, and Sunset", R.layout.layout_widget_3x1_0);
+        WIDGETMODE3x1_BOTH_1("Sunrise, Noon, and Sunset", R.layout.layout_widget_3x1_0, new SunLayout_3x1_0());
 
-        private WidgetModeSun3x1(@NonNull String displayString, int layoutID)
+        private WidgetModeSun3x1(@NonNull String displayString, int layoutID, SunLayout layout)
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+            this.layout = layout;
         }
 
+        private final SuntimesLayout layout;
         private final int layoutID;
+
+        @Override
+        public String getWidgetSize() {
+            return SIZE_3x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return SuntimesWidget0_3x1.class;
+        }
+
+        @Override
+        public SuntimesLayout getWidgetLayout() {
+            return layout;
+        }
+
         public int getLayoutID() {
             return layoutID;
         }
@@ -670,16 +751,33 @@ public class WidgetSettings
      */
     public static enum WidgetModeSunPos1x1 implements WidgetModeDisplay
     {
-        MODE1x1_ALTAZ("Altitude & Azimuth", R.layout.layout_widget_sunpos_1x1_5),
-        MODE1x1_DECRIGHT("Declination & Right Ascension", R.layout.layout_widget_sunpos_1x1_6);
+        MODE1x1_ALTAZ("Altitude & Azimuth", R.layout.layout_widget_sunpos_1x1_5, new SunPosLayout_1X1_0()),
+        MODE1x1_DECRIGHT("Declination & Right Ascension", R.layout.layout_widget_sunpos_1x1_6, new SunPosLayout_1X1_1());
 
+        private final SuntimesLayout layout;
         private final int layoutID;
         private String displayString;
 
-        private WidgetModeSunPos1x1(@NonNull String displayString, int layoutID)
+        private WidgetModeSunPos1x1(@NonNull String displayString, int layoutID, SunPosLayout layout)
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+            this.layout = layout;
+        }
+
+        @Override
+        public String getWidgetSize() {
+            return SIZE_1x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return SuntimesWidget2.class;
+        }
+
+        @Override
+        public SuntimesLayout getWidgetLayout() {
+            return layout;
         }
 
         public int getLayoutID()
@@ -725,17 +823,34 @@ public class WidgetSettings
      */
     public static enum WidgetModeSunPos3x1 implements WidgetModeDisplay
     {
-        MODE3x1_LIGHTMAP("Lightmap", R.layout.layout_widget_sunpos_3x1_0),
-        MODE3x1_LIGHTMAP_MEDIUM("Lightmap (medium)", R.layout.layout_widget_sunpos_3x1_0),
-        MODE3x1_LIGHTMAP_SMALL("Lightmap (small)", R.layout.layout_widget_sunpos_3x1_0);
+        MODE3x1_LIGHTMAP("Lightmap", R.layout.layout_widget_sunpos_3x1_0, new SunPosLayout_3X1_0()),
+        MODE3x1_LIGHTMAP_MEDIUM("Lightmap (medium)", R.layout.layout_widget_sunpos_3x1_0, new SunPosLayout_3X1_1()),
+        MODE3x1_LIGHTMAP_SMALL("Lightmap (small)", R.layout.layout_widget_sunpos_3x1_0, new SunPosLayout_3X1_2());
 
+        private final SuntimesLayout layout;
         private final int layoutID;
         private String displayString;
 
-        private WidgetModeSunPos3x1(@NonNull String displayString, int layoutID)
+        private WidgetModeSunPos3x1(@NonNull String displayString, int layoutID, SunPosLayout layout)
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+            this.layout = layout;
+        }
+
+        @Override
+        public String getWidgetSize() {
+            return SIZE_3x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return SuntimesWidget2_3x1.class;
+        }
+
+        @Override
+        public SuntimesLayout getWidgetLayout() {
+            return layout;
         }
 
         public int getLayoutID()
@@ -783,17 +898,34 @@ public class WidgetSettings
      */
     public static enum WidgetModeSunPos3x2 implements WidgetModeDisplay
     {
-        MODE3x2_LIGHTGRAPH("Light Graph", R.layout.layout_widget_sunpos_3x2_2),
-        MODE3x2_LINEGRAPH("Altitude Graph", R.layout.layout_widget_sunpos_3x2_1),
-        MODE3x2_WORLDMAP("World Map", R.layout.layout_widget_sunpos_3x2_0);
+        MODE3x2_LIGHTGRAPH("Light Graph", R.layout.layout_widget_sunpos_3x2_2, new SunPosLayout_3X2_2()),
+        MODE3x2_LINEGRAPH("Altitude Graph", R.layout.layout_widget_sunpos_3x2_1, new SunPosLayout_3X2_1()),
+        MODE3x2_WORLDMAP("World Map", R.layout.layout_widget_sunpos_3x2_0, new SunPosLayout_3X2_0());
 
+        private final SuntimesLayout layout;
         private final int layoutID;
         private String displayString;
 
-        private WidgetModeSunPos3x2(@NonNull String displayString, int layoutID)
+        private WidgetModeSunPos3x2(@NonNull String displayString, int layoutID, SunPosLayout layout)
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+            this.layout = layout;
+        }
+
+        @Override
+        public String getWidgetSize() {
+            return SIZE_3x2;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return SuntimesWidget2_3x2.class;
+        }
+
+        @Override
+        public SuntimesLayout getWidgetLayout() {
+            return layout;
         }
 
         public int getLayoutID() {
@@ -837,24 +969,41 @@ public class WidgetSettings
      */
     public static enum WidgetModeMoon1x1 implements WidgetModeDisplay
     {
-        MODE1x1_RISESET("Moonrise & moonset", R.layout.layout_widget_moon_1x1_0),
-        MODE1x1_PHASEILLUM("Moon phase & illumination", R.layout.layout_widget_moon_1x1_1),
-        MODE1x1_PHASE("Moon phase only", R.layout.layout_widget_moon_1x1_2),
-        MODE1x1_ILLUM("Moon illumination only", R.layout.layout_widget_moon_1x1_3),
-        MODE1x1_PHASENEXT("Next major phase", R.layout.layout_widget_moon_1x1_4),
-        MODE1x1_ALTAZ("Altitude & Azimuth", R.layout.layout_widget_moon_1x1_5),
-        MODE1x1_DECRIGHT("Declination & Right Ascension", R.layout.layout_widget_moon_1x1_6),
-        MODE1x1_DISTANCE("Current distance", R.layout.layout_widget_moon_1x1_7),
-        MODE1x1_APSIS("Next apogee / perigee", R.layout.layout_widget_moon_1x1_8),
-        MODE1x1_MOONDAY("Moon Day", R.layout.layout_widget_moon_1x1_9);
+        MODE1x1_RISESET("Moonrise & moonset", R.layout.layout_widget_moon_1x1_0, new MoonLayout_1x1_0()),
+        MODE1x1_PHASEILLUM("Moon phase & illumination", R.layout.layout_widget_moon_1x1_1, new MoonLayout_1x1_1()),
+        MODE1x1_PHASE("Moon phase only", R.layout.layout_widget_moon_1x1_2, new MoonLayout_1x1_2()),
+        MODE1x1_ILLUM("Moon illumination only", R.layout.layout_widget_moon_1x1_3, new MoonLayout_1x1_3()),
+        MODE1x1_PHASENEXT("Next major phase", R.layout.layout_widget_moon_1x1_4, new MoonLayout_1x1_4()),
+        MODE1x1_ALTAZ("Altitude & Azimuth", R.layout.layout_widget_moon_1x1_5, new MoonLayout_1x1_5()),
+        MODE1x1_DECRIGHT("Declination & Right Ascension", R.layout.layout_widget_moon_1x1_6, new MoonLayout_1x1_6()),
+        MODE1x1_DISTANCE("Current distance", R.layout.layout_widget_moon_1x1_7, new MoonLayout_1x1_7()),
+        MODE1x1_APSIS("Next apogee / perigee", R.layout.layout_widget_moon_1x1_8, new MoonLayout_1x1_8()),
+        MODE1x1_MOONDAY("Moon Day", R.layout.layout_widget_moon_1x1_9, new MoonLayout_1x1_9());
 
+        private final SuntimesLayout layout;
         private final int layoutID;
         private String displayString;
 
-        private WidgetModeMoon1x1(@NonNull String displayString, int layoutID)
+        private WidgetModeMoon1x1(@NonNull String displayString, int layoutID, MoonLayout layout)
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+            this.layout = layout;
+        }
+
+        @Override
+        public String getWidgetSize() {
+            return SIZE_1x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return MoonWidget0.class;
+        }
+
+        @Override
+        public SuntimesLayout getWidgetLayout() {
+            return layout;
         }
 
         public int getLayoutID()
@@ -909,15 +1058,32 @@ public class WidgetSettings
      */
     public static enum WidgetModeMoon2x1 implements WidgetModeDisplay
     {
-        WIDGETMODE2x1_BOTH_1("Moonrise, moonset, phase & illumination", R.layout.layout_widget_moon_2x1_0);
+        WIDGETMODE2x1_BOTH_1("Moonrise, moonset, phase & illumination", R.layout.layout_widget_moon_2x1_0, new MoonLayout_2x1_0());
 
+        private final SuntimesLayout layout;
         private final int layoutID;
         private String displayString;
 
-        private WidgetModeMoon2x1(@NonNull String displayString, int layoutID)
+        private WidgetModeMoon2x1(@NonNull String displayString, int layoutID, MoonLayout layout)
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+            this.layout = layout;
+        }
+
+        @Override
+        public String getWidgetSize() {
+            return SIZE_2x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return MoonWidget0_2x1.class;
+        }
+
+        @Override
+        public SuntimesLayout getWidgetLayout() {
+            return layout;
         }
 
         public int getLayoutID()
@@ -962,15 +1128,32 @@ public class WidgetSettings
      */
     public static enum WidgetModeMoon3x1 implements WidgetModeDisplay
     {
-        WIDGETMODE3x1_BOTH_1("Major Phases", R.layout.layout_widget_moon_3x1_0);
+        WIDGETMODE3x1_BOTH_1("Major Phases", R.layout.layout_widget_moon_3x1_0, new MoonLayout_3x1_0());
 
+        private final SuntimesLayout layout;
         private final int layoutID;
         private String displayString;
 
-        private WidgetModeMoon3x1(@NonNull String displayString, int layoutID)
+        private WidgetModeMoon3x1(@NonNull String displayString, int layoutID, MoonLayout layout)
         {
             this.displayString = displayString;
             this.layoutID = layoutID;
+            this.layout = layout;
+        }
+
+        @Override
+        public String getWidgetSize() {
+            return SIZE_3x1;
+        }
+
+        @Override
+        public Class<?> getWidgetClass() {
+            return MoonWidget0_3x1.class;
+        }
+
+        @Override
+        public SuntimesLayout getWidgetLayout() {
+            return layout;
         }
 
         public int getLayoutID()
@@ -1684,8 +1867,11 @@ public class WidgetSettings
     {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_WIDGET, 0);
         String prefs_prefix = PREF_PREFIX_KEY + appWidgetId + PREF_PREFIX_KEY_APPEARANCE;
-        String s = prefs.getString(prefs_prefix + PREF_KEY_APPEARANCE_THEME, PREF_DEF_APPEARANCE_THEME);
-        return (s != null ? s : PREF_DEF_APPEARANCE_THEME);
+        String s = prefs.getString(prefs_prefix + PREF_KEY_APPEARANCE_THEME, getThemeDefault(context));
+        return (s != null ? s : getThemeDefault(context));
+    }
+    public static String getThemeDefault(Context context) {
+        return (context != null ? context.getString(R.string.def_appwidget_0_appearance_theme) : PREF_DEF_APPEARANCE_THEME);
     }
     public static SuntimesTheme loadThemePref(Context context, int appWidgetId)
     {

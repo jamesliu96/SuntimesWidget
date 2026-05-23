@@ -109,12 +109,16 @@ public class SunLayout_1x1_0 extends SunLayout
             if (WidgetSettings.loadScaleTextPref(context, appWidgetId))
             {
                 int showTitle = (WidgetSettings.loadShowTitlePref(context, appWidgetId) ? 1 : 0);
-                int[] maxDp = new int[] {maxDimensionsDp[0] - (2*(paddingDp[0] + paddingDp[2])), ((maxDimensionsDp[1] - (paddingDp[1] + paddingDp[3]) - ((int)titleSizeSp * showTitle)) / 2)};
-                float[] adjustedSizeSp = adjustTextSize(context, maxDp, new int[] {8,2}, "sans-serif", boldTime, (showSeconds ? "00:00:00" : "00:00"), timeSizeSp, SuntimesLayout.MAX_SP, "MM", suffixSizeSp, iconSizeDp);
+                int[] maxDp = new int[] {
+                        maxDimensionsDp[0] - (paddingDp[0] + paddingDp[2]),
+                        (((maxDimensionsDp[1] - 4 - ((int)titleSizeSp * showTitle))) / 2)
+                };
+
+                float[] adjustedSizeSp = adjustTextSize(context, maxDp, new int[] {8,2}, "sans-serif", boldTime, (showSeconds ? "00:00:00" : "00:00"), timeSizeSp, SuntimesLayout.MAX_SP, "MM", suffixSizeSp, iconSizeDp + 8);
                 if (adjustedSizeSp[0] > timeSizeSp)
                 {
                     float textScale = Math.max(adjustedSizeSp[0] / timeSizeSp, 1);
-                    float scaledPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, textScale * 2, context.getResources().getDisplayMetrics());
+                    float scaledPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, textScale * 4, context.getResources().getDisplayMetrics());
 
                     views.setTextViewTextSize(R.id.text_time_rise, TypedValue.COMPLEX_UNIT_DIP, adjustedSizeSp[0]);
                     views.setTextViewTextSize(R.id.text_time_rise_suffix, TypedValue.COMPLEX_UNIT_DIP, adjustedSizeSp[1]);

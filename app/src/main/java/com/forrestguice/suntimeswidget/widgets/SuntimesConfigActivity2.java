@@ -170,7 +170,7 @@ public class SuntimesConfigActivity2 extends SuntimesConfigActivity0
                 }
             }
         };
-        adapter.setDropDownViewResource(R.layout.layout_listitem_layouts);
+        adapter.setDropDownViewResource(R.layout.layout_listitem_layouts1);
         adapter.setThemeValues(themeValues);
         return adapter;
     }

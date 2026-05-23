@@ -68,15 +68,17 @@ public class SunPosLayout_3X1_0 extends SunPosLayout
     }
 
     @Override
-    public void prepareForUpdate(Context context, int appWidgetId, SuntimesRiseSetDataset dataset, int[] widgetSize)
+    public void prepareForUpdate(Context context, int appWidgetId, SuntimesRiseSetDataset dataset, @Nullable int[] widgetSize)
     {
         super.prepareForUpdate(context, appWidgetId, dataset, widgetSize);
         int position = (scaleBase ? 0 : WidgetSettings.loadWidgetGravityPref(context, appWidgetId));
         this.layoutID = chooseLayout(position); //(scaleBase ? R.layout.layout_widget_sunpos_3x1_0_align_fill : R.layout.layout_widget_sunpos_3x1_0);
         if (Build.VERSION.SDK_INT >= 16)
         {
-            this.dpWidth = widgetSize[0];
-            //this.dpHeight = widgetSize[1];
+            if (widgetSize != null) {
+                this.dpWidth = widgetSize[0];
+                //this.dpHeight = widgetSize[1];
+            }
         }
     }
 
@@ -154,7 +156,7 @@ public class SunPosLayout_3X1_0 extends SunPosLayout
         }
 
         colors = new LightMapOptions();
-        if (theme.getBackground() == SuntimesTheme.ThemeBackground.LIGHT)
+        if (theme.getBackground() == SuntimesTheme.ThemeBackground.LIGHT_HOLO)
             colors.initDefaultLight(AndroidResources.wrap(context));
         else colors.initDefaultDark(AndroidResources.wrap(context));
 

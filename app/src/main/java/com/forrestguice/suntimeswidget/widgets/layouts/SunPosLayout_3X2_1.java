@@ -26,6 +26,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import com.forrestguice.annotation.Nullable;
 import com.forrestguice.suntimeswidget.R;
 import com.forrestguice.suntimeswidget.SuntimesUtils;
 import com.forrestguice.suntimeswidget.calculator.SuntimesRiseSetDataset;
@@ -73,7 +74,7 @@ public class SunPosLayout_3X2_1 extends SunPosLayout
     }
 
     @Override
-    public void prepareForUpdate(Context context, int appWidgetId, SuntimesRiseSetDataset dataset, int[] widgetSize)
+    public void prepareForUpdate(Context context, int appWidgetId, SuntimesRiseSetDataset dataset, @Nullable int[] widgetSize)
     {
         super.prepareForUpdate(context, appWidgetId, dataset, widgetSize);
 
@@ -81,8 +82,10 @@ public class SunPosLayout_3X2_1 extends SunPosLayout
         this.layoutID = chooseLayout(position);
         if (Build.VERSION.SDK_INT >= 16)
         {
-            this.dpWidth = widgetSize[0];
-            this.dpHeight = widgetSize[1];
+            if (widgetSize != null) {
+                this.dpWidth = widgetSize[0];
+                this.dpHeight = widgetSize[1];
+            }
         }
     }
 
@@ -127,7 +130,7 @@ public class SunPosLayout_3X2_1 extends SunPosLayout
         super.themeViews(context, views, theme);
         AndroidResources resources = AndroidResources.wrap(context);
         options = new LineGraphOptions(resources);
-        if (theme.getBackground() == SuntimesTheme.ThemeBackground.LIGHT)
+        if (theme.getBackground() == SuntimesTheme.ThemeBackground.LIGHT_HOLO)
             options.initDefaultLight(resources);
         else options.initDefaultDark(resources);
 

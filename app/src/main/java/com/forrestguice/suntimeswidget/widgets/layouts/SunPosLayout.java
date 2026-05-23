@@ -34,6 +34,7 @@ import com.forrestguice.suntimeswidget.calculator.SuntimesRiseSetData;
 import com.forrestguice.suntimeswidget.calculator.core.SuntimesCalculator;
 import com.forrestguice.suntimeswidget.calculator.SuntimesRiseSetDataset;
 import com.forrestguice.suntimeswidget.calculator.settings.android.AndroidSuntimesDataSettings;
+import com.forrestguice.suntimeswidget.map.WorldMapWidgetSettings;
 import com.forrestguice.suntimeswidget.settings.WidgetSettings;
 import com.forrestguice.suntimeswidget.themes.SuntimesTheme;
 import com.forrestguice.suntimeswidget.views.SpanUtils;
@@ -50,7 +51,7 @@ public abstract class SunPosLayout extends PositionLayout
 
     protected boolean scaleBase = WidgetSettings.PREF_DEF_APPEARANCE_SCALEBASE;
 
-    public void prepareForUpdate(Context context, int appWidgetId, SuntimesRiseSetDataset dataset, int[] widgetSize)
+    public void prepareForUpdate(Context context, int appWidgetId, SuntimesRiseSetDataset dataset, @Nullable int[] widgetSize)
     {
         this.scaleBase = WidgetSettings.loadScaleBasePref(context, appWidgetId);
         dataset.calculateData(context);
@@ -260,6 +261,12 @@ public abstract class SunPosLayout extends PositionLayout
             views.setTextViewTextSize(R.id.info_sun_rightascension_current, TypedValue.COMPLEX_UNIT_DIP, timeSize);
             views.setTextViewTextSize(R.id.info_sun_declination_current, TypedValue.COMPLEX_UNIT_DIP, timeSize);
         }
+    }
+
+    @Nullable
+    protected WorldMapWidgetSettings.WorldMapWidgetMode mapMode = null;
+    public void setMapMode(@androidx.annotation.Nullable WorldMapWidgetSettings.WorldMapWidgetMode mode) {
+        mapMode = mode;
     }
 
 }

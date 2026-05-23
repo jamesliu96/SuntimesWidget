@@ -28,6 +28,8 @@ import com.forrestguice.suntimeswidget.R;
 import com.forrestguice.suntimeswidget.widgets.layouts.SunLayout;
 import com.forrestguice.suntimeswidget.widgets.layouts.SunLayout_3x1_0;
 
+import static com.forrestguice.suntimeswidget.settings.WidgetSettings.SIZE_3x1;
+
 /**
  * Widget config activity (for resizable widget that falls back to 3x1 layout).
  */

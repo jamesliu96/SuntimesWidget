@@ -32,7 +32,7 @@ public class LightTheme extends SuntimesTheme
     public static final int THEMEDEF_VERSION = BuildConfig.VERSION_CODE;
     private static ThemeDescriptor THEMEDEF_DESCRIPTOR = null;
 
-    public static final ThemeBackground THEMEDEF_BACKGROUND = ThemeBackground.LIGHT;
+    public static final ThemeBackground THEMEDEF_BACKGROUND = ThemeBackground.LIGHT_HOLO;
     public static final int THEMEDEF_BACKGROUND_COLOR_ID = R.color.widget_bg_light;
     public static final int[] THEMEDEF_PADDING = {2, 4, 4, 4};
 
@@ -166,7 +166,7 @@ public class LightTheme extends SuntimesTheme
     public static ThemeDescriptor themeDescriptor(Context context)
     {
         if (THEMEDEF_DESCRIPTOR == null) {
-            THEMEDEF_DESCRIPTOR = new ThemeDescriptor(THEMEDEF_NAME, context.getString(R.string.themes_widgetThemes_light1), THEMEDEF_VERSION, ThemeBackground.LIGHT.name(), Color.LTGRAY);
+            THEMEDEF_DESCRIPTOR = new ThemeDescriptor(THEMEDEF_NAME, context.getString(R.string.themes_widgetThemes_light1), THEMEDEF_VERSION, ThemeBackground.LIGHT_HOLO.name(), Color.LTGRAY);
         }
         return THEMEDEF_DESCRIPTOR;
     }

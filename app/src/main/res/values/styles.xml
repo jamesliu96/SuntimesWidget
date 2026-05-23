@@ -1189,6 +1189,10 @@
         <item name="android:background">?attr/settingsCardBackground</item>
     </style>
     <style name="SunsetTimeSettingsGroupHeader">
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
         <!--<item name="android:background">?attr/selectableItemBackground</item>-->
     </style>
     <style name="SunsetTimeSettingsExpandCheckBox">

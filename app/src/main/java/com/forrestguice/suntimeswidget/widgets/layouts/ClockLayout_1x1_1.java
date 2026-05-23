@@ -36,6 +36,7 @@ import android.widget.RemoteViews;
 
 import com.forrestguice.annotation.Nullable;
 import com.forrestguice.suntimeswidget.R;
+import com.forrestguice.suntimeswidget.SuntimesUtils;
 import com.forrestguice.suntimeswidget.calculator.settings.TimeFormatMode;
 import com.forrestguice.suntimeswidget.calculator.settings.display.TimeDateDisplay;
 import com.forrestguice.suntimeswidget.settings.AppSettings;
@@ -82,6 +83,9 @@ public class ClockLayout_1x1_1 extends ClockLayout_1x1_0
         if (options == null) {
             options = new ClockFaceOptions(context, appWidgetId);
         }
+        options.outline = ClockWidgetSettings.loadClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_OUTLINE, true);
+        options.italic = ClockWidgetSettings.loadClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_ITALIC, false);
+        options.bold = boldTime(context, appWidgetId);
         options.textColor = ClockWidgetSettings.loadClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_COLOR, timeColor);
         options.minTextSizePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, textSizeSp, context.getResources().getDisplayMetrics());
         options.textAlign = AppSettings.isLocaleRtl(context) ? Paint.Align.LEFT : Paint.Align.RIGHT;
@@ -246,9 +250,16 @@ public class ClockLayout_1x1_1 extends ClockLayout_1x1_0
 
             if (options.cutout)
             {
-                c.drawColor(options.textColor);
+                if (options.cutoutRadiusDp <= 0) {
+                    c.drawColor(options.textColor);
+                } else {
+                    int rPx = SuntimesUtils.dpToPixels(context, options.cutoutRadiusDp);
+                    p.setColor(options.textColor);
+                    c.drawRoundRect(0, 0, w, h, rPx, rPx, p);
+                }
                 p.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
                 p.setColor(Color.TRANSPARENT);
+
             } else {
                 p.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));
                 p.setColor(options.textColor);
@@ -308,21 +319,23 @@ public class ClockLayout_1x1_1 extends ClockLayout_1x1_0
         public static final int STYLE_VERTICAL = 10;
         public int style = STYLE_VERTICAL;
 
-        public int textColor = Color.WHITE;
+        public int textColor = ClockWidgetSettings.PREF_DEF_APPEARANCE_COLOR;
         public Paint.Align textAlign = Paint.Align.RIGHT;
 
-        public String fontFamily = "serif-monospace"; //"sans-serif-black";    // casual, cursive, monospace, sans-serif, sans-serif-black, sans-serif-condensed, sans-serif-condensed-light, sans-serif-light, sans-serif-medium, sans-serif-thin, serif, serif-monospace
-        public boolean bold = false;
-        public boolean italic = false;
+        public String fontFamily = ClockWidgetSettings.PREF_DEF_APPEARANCE_TYPEFACE;
+        public boolean bold = ClockWidgetSettings.PREF_DEF_APPEARANCE_BOLD;
+        public boolean italic = ClockWidgetSettings.PREF_DEF_APPEARANCE_ITALIC;
 
-        public boolean cutout = false;
-        public boolean outline = true;
+        public boolean cutout = ClockWidgetSettings.PREF_DEF_APPEARANCE_CUTOUT;
+        public float cutoutRadiusDp = ClockWidgetSettings.PREF_DEF_APPEARANCE_CUTOUT_RADIUS;
+
+        public boolean outline = ClockWidgetSettings.PREF_DEF_APPEARANCE_OUTLINE;
         public float outlineRatio = 1/48f;
 
-        public boolean glow = false;
+        public boolean glow = ClockWidgetSettings.PREF_DEF_APPEARANCE_GLOW;
         public float glowRatio = 3/48f;
         public int glowX = 1, glowY = 1;
-        public int glowColor = Color.WHITE;
+        public int glowColor = ClockWidgetSettings.PREF_DEF_APPEARANCE_GLOW_COLOR;
 
         public boolean scaleText = true;
         public float minTextSizePx = 16;
@@ -337,6 +350,10 @@ public class ClockLayout_1x1_1 extends ClockLayout_1x1_0
             bold = ClockWidgetSettings.loadClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_BOLD, bold);
             italic = ClockWidgetSettings.loadClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_ITALIC, italic);
             outline = ClockWidgetSettings.loadClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_OUTLINE, outline);
+            cutout = ClockWidgetSettings.loadClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_CUTOUT, cutout);
+            cutoutRadiusDp = ClockWidgetSettings.loadClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_CUTOUT_RADIUS, (int) cutoutRadiusDp);
+            glow = ClockWidgetSettings.loadClockTypefaceFlag(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_GLOW, glow);
+            glowColor = ClockWidgetSettings.loadClockTypefaceValue(context, appWidgetId, ClockWidgetSettings.PREF_KEY_APPEARANCE_TYPEFACE_GLOW_COLOR, glowColor);
         }
 
         public Typeface getTypeface() {
@@ -519,7 +536,7 @@ public class ClockLayout_1x1_1 extends ClockLayout_1x1_0
                     float maxSp = getMaxSp();
                     int[] maxDp = new int[] { (maxDimensionsDp[0] - (paddingDp[0] + paddingDp[2])),
                                               ((maxDimensionsDp[1] - (paddingDp[1] + paddingDp[3]) - ((int)titleSizeSp * showTitle)) / 5) };
-                    float[] adjustedSizeSp = adjustTextSize(context, maxDp, paddingDp, "sans-serif", boldTime, dateString, textSizeSp, maxSp, "", 0);
+                    float[] adjustedSizeSp = adjustTextSize(context, maxDp, paddingDp, "sans-serif", boldTime(context, appWidgetId), dateString, textSizeSp, maxSp, "", 0);
 
                     if (adjustedSizeSp[0] != textSizeSp) {
                         views.setTextViewTextSize(R.id.text_date, TypedValue.COMPLEX_UNIT_DIP, adjustedSizeSp[0]);
