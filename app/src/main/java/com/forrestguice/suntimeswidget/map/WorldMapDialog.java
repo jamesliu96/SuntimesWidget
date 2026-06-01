@@ -1145,7 +1145,7 @@ public class WorldMapDialog extends BottomSheetDialogBase
 
             AlertDialog.Builder builder = new AlertDialog.Builder(context)
                     .setTitle(title).setMessage(message)
-                    .setIcon(IconUtils.getThemedIcon(context, R.attr.icActionSettings, R.drawable.ic_action_settings))
+                    .setIcon(IconUtils.getAlertDialogIcon(context, R.attr.icActionSettings, R.drawable.ic_action_settings))
                     .setPositiveButton(context.getString(R.string.dialog_ok),
                     new DialogInterface.OnClickListener() {
                         @Override

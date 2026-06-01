@@ -720,7 +720,7 @@ public class AlarmEditActivity extends AppCompatActivity implements AlarmItemAda
         {
             String message = context.getString(R.string.discardchanges_dialog_message);
             AlertDialog.Builder confirm = new AlertDialog.Builder(context).setMessage(message)
-                    .setIcon(IconUtils.getThemedIcon(context, R.attr.icActionWarning, R.drawable.ic_action_warning))
+                    .setIcon(IconUtils.getAlertDialogIcon(context, R.attr.icActionWarning, R.drawable.ic_action_warning))
                     .setPositiveButton(context.getString(R.string.discardchanges_dialog_ok), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             AlarmEditActivity.super.onBackPressed();

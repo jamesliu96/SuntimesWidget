@@ -264,7 +264,7 @@ public class UIPrefsFragment extends PreferenceFragment
                     AlertDialog.Builder confirm = new AlertDialog.Builder(context)
                             .setCancelable(false)
                             .setMessage(context.getString(R.string.events_editevent_dialog_showevent_off))
-                            .setIcon(IconUtils.getThemedIcon(context, R.attr.icActionAbout, R.drawable.ic_action_about))
+                            .setIcon(IconUtils.getAlertDialogIcon(context, R.attr.icActionAbout, R.drawable.ic_action_about))
                             .setPositiveButton(context.getString(R.string.dialog_ok), new DialogInterface.OnClickListener()
                             {
                                 public void onClick(DialogInterface dialog, int whichButton)

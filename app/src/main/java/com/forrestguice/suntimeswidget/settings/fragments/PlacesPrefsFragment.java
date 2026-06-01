@@ -615,7 +615,7 @@ public class PlacesPrefsFragment extends PreferenceFragment
                     AlertDialog.Builder confirm = new AlertDialog.Builder(myParent)
                             .setTitle(myParent.getString(R.string.locationclear_dialog_title))
                             .setMessage(myParent.getString(R.string.locationclear_dialog_message))
-                            .setIcon(IconUtils.getThemedIcon(myParent, R.attr.icActionWarning, R.drawable.ic_action_warning))
+                            .setIcon(IconUtils.getAlertDialogIcon(myParent, R.attr.icActionWarning, R.drawable.ic_action_warning))
                             .setPositiveButton(myParent.getString(R.string.locationclear_dialog_ok), new DialogInterface.OnClickListener()
                             {
                                 public void onClick(DialogInterface dialog, int whichButton)
