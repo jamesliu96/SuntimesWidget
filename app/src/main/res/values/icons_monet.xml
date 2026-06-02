@@ -48,7 +48,7 @@
     <drawable name="ic_action_widget_ref1">@drawable/ic_action_widget_light</drawable>
     <drawable name="ic_palette_ref1">@drawable/ic_action_palette_light</drawable>
     <drawable name="ic_action_extension_ref1">@drawable/ic_action_extension_light</drawable>
-    <drawable name="baseline_terrain_ref1_18">@drawable/baseline_terrain_black_18</drawable>
+    <drawable name="baseline_terrain_ref1_18">@drawable/ic_action_terrain_light</drawable>
     <drawable name="ic_action_shadow_ref1">@drawable/ic_action_shadow_light</drawable>
     <drawable name="ic_action_locale_ref1">@drawable/ic_action_locale_light</drawable>
     <drawable name="ic_action_settings_ref1">@drawable/ic_action_settings_light</drawable>

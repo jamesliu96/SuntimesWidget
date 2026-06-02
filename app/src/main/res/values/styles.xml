@@ -155,7 +155,7 @@
         <item name="icActionEvents">@drawable/ic_action_events_ref</item>
         <item name="icActionAppearance">@drawable/ic_action_palette_ref</item>
         <item name="icActionExtension">@drawable/ic_action_extension_ref</item>
-        <item name="icActionAltitude">@drawable/baseline_terrain_ref_18</item>
+        <item name="icActionAltitude">@drawable/ic_action_terrain_ref</item>
         <item name="icActionShadow">@drawable/ic_action_shadow_ref</item>
         <item name="icActionSun">@drawable/ic_action_sun_ref</item>
         <item name="icActionSunChart">@drawable/ic_action_multiline_chart_ref</item>
@@ -405,7 +405,7 @@
         <item name="icActionEvents">@drawable/ic_action_widget_light</item>    <!-- TODO -->
         <item name="icActionAppearance">@drawable/ic_action_palette_light</item>
         <item name="icActionExtension">@drawable/ic_action_extension_light</item>
-        <item name="icActionAltitude">@drawable/baseline_terrain_black_18</item>
+        <item name="icActionAltitude">@drawable/ic_action_terrain_light</item>
         <item name="icActionShadow">@drawable/ic_action_shadow_light</item>
         <item name="icActionSun">@drawable/ic_action_sun_light</item>
         <item name="icActionSunChart">@drawable/ic_action_multiline_chart_light</item>
@@ -660,7 +660,7 @@
         <item name="icActionEvents">@drawable/ic_action_widget</item>    <!-- TODO -->
         <item name="icActionAppearance">@drawable/ic_action_palette</item>
         <item name="icActionExtension">@drawable/ic_action_extension</item>
-        <item name="icActionAltitude">@drawable/baseline_terrain_white_18</item>
+        <item name="icActionAltitude">@drawable/ic_action_terrain_dark</item>
         <item name="icActionShadow">@drawable/ic_action_shadow</item>
         <item name="icActionSun">@drawable/ic_action_sun_dark</item>
         <item name="icActionSunChart">@drawable/ic_action_multiline_chart_dark</item>

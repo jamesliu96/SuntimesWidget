@@ -332,7 +332,7 @@ public class GeneralPrefsFragment extends PreferenceFragment
     public static void initPref_altitude(final Activity context, final CheckBoxPreference altitudePref)
     {
         TypedArray a = context.obtainStyledAttributes(new int[]{R.attr.icActionAltitude});
-        int drawableID = a.getResourceId(0, R.drawable.baseline_terrain_black_18);
+        int drawableID = a.getResourceId(0, R.drawable.ic_action_terrain_dark);
         a.recycle();
 
         String title = context.getString(R.string.settings_general_altitude_enabled) + " [i]";
