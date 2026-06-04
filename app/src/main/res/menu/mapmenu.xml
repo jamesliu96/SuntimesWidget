@@ -8,6 +8,7 @@
         app:showAsAction="never">
 
         <menu>
+
             <item android:id="@+id/mapOption_center"
                 android:title="@string/worldmap_dialog_option_center"
                 android:icon="?attr/icActionPlace"
@@ -45,6 +46,14 @@
                 android:title="@string/action_colors"
                 android:icon="?attr/icActionAppearance"
                 app:showAsAction="never" />
+
+            <item android:id="@+id/mapOption_addonBackgrounds"
+                android:icon="?attr/icActionWorldMap"
+                android:title="@string/themes_configLabel_themeColorMapBackground"
+                android:visible="false"
+                app:showAsAction="never">
+                <menu />
+            </item>
 
             <group android:id="@+id/mapOption_group_light">
 

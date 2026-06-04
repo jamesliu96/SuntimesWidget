@@ -19,6 +19,7 @@ package com.forrestguice.suntimeswidget.map.backgrounds;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -33,6 +34,7 @@ import android.view.SubMenu;
 import com.forrestguice.annotation.NonNull;
 import com.forrestguice.annotation.Nullable;
 import com.forrestguice.suntimeswidget.BuildConfig;
+import com.forrestguice.suntimeswidget.views.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -112,7 +114,7 @@ public class WorldMapBackgrounds
         ArrayList<WorldMapBackgroundItem> items = new ArrayList<>();
         if (resolver != null && provider != null)
         {
-            Uri uri = Uri.parse(provider + "/" + WorldMapBackgroundContract.QUERY_BACKGROUND_LIST);   // TODO: projection
+            Uri uri = Uri.parse(provider + "/" + WorldMapBackgroundContract.QUERY_BACKGROUND_LIST + "/" + projection);
             Cursor cursor = resolver.query(uri, WorldMapBackgroundContract.QUERY_BACKGROUND_LIST_PROJECTION, null, null, null);
             if (cursor != null)
             {
@@ -178,7 +180,7 @@ public class WorldMapBackgrounds
      * @param submenuItem MenuItem
      * @param backgroundItems List<WorldMapBackgroundItem>
      */
-    public static void populateSubMenu(@Nullable MenuItem submenuItem, @NonNull List<WorldMapBackgroundItem> backgroundItems)
+    public static void populateSubMenu(Context context, @Nullable MenuItem submenuItem, @NonNull List<WorldMapBackgroundItem> backgroundItems, @Nullable OnWorldMapBackgroundItemClick menuItemListener)
     {
         if (submenuItem != null)
         {
@@ -188,19 +190,24 @@ public class WorldMapBackgrounds
                 for (WorldMapBackgroundItem item : backgroundItems)
                 {
                     MenuItem menuItem = submenu.add(Menu.NONE, Menu.NONE, Menu.NONE, item.getTitle());
-
-                    // TODO
-                    //if (addon.getIcon() != 0) {
-                    //    menuItem.setIcon(addon.getIcon());
-                    //}
-                    //Intent intent = addon.getIntent();
-                    //intent.setAction(ACTION_SHOW_DATE);
-                    //intent.putExtra(EXTRA_SHOW_DATE, datetime);
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    //menuItem.setIntent(intent);
+                    menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener()
+                    {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem menuItem)
+                        {
+                            if (menuItemListener != null) {
+                                menuItemListener.onClick(item);
+                            }
+                            return true;
+                        }
+                    });
                 }
             }
         }
+    }
+
+    public interface OnWorldMapBackgroundItemClick {
+        void onClick(WorldMapBackgroundItem item);
     }
 
 }

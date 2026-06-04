@@ -37,6 +37,8 @@ import android.os.Bundle;
 
 import com.forrestguice.suntimeswidget.calculator.settings.display.TimeDateDisplay;
 import com.forrestguice.suntimeswidget.calculator.settings.display.TimeDeltaDisplay;
+import com.forrestguice.suntimeswidget.map.backgrounds.WorldMapBackgroundItem;
+import com.forrestguice.suntimeswidget.map.backgrounds.WorldMapBackgrounds;
 import com.forrestguice.suntimeswidget.views.IconUtils;
 import com.forrestguice.suntimeswidget.views.SpanUtils;
 import com.forrestguice.support.app.ActivityResultLauncherCompat;
@@ -87,6 +89,7 @@ import com.forrestguice.suntimeswidget.themes.SuntimesTheme;
 import com.forrestguice.suntimeswidget.views.TooltipCompat;
 import com.forrestguice.suntimeswidget.views.ViewUtils;
 import com.forrestguice.support.widget.ImageViewCompat;
+import com.forrestguice.util.ExecutorUtils;
 import com.forrestguice.util.android.AndroidResources;
 import com.forrestguice.util.text.TimeDisplayText;
 
@@ -95,6 +98,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.Callable;
 
 public class WorldMapDialog extends BottomSheetDialogBase
 {
@@ -1023,6 +1027,30 @@ public class WorldMapDialog extends BottomSheetDialogBase
             if (!addonMenuItems.isEmpty()) {
                 MenuAddon.populateSubMenu(addonSubmenuItem, addonMenuItems, getMapTime(System.currentTimeMillis()));
             } //else addonSubmenuItem.setVisible(false);
+        }
+
+        MenuItem addonBackgroundsItem = m.findItem(R.id.mapOption_addonBackgrounds);
+        if (addonBackgroundsItem != null)
+        {
+            String projectionID = worldmap.getMapMode().getProjectionID();
+            ExecutorUtils.waitForTask("", new Callable<Boolean>() {
+                @Override
+                public Boolean call() throws Exception
+                {
+                    List<WorldMapBackgroundItem> items = WorldMapBackgrounds.queryWorldMapBackgroundItems(context, projectionID);   // TODO: w/ timeout
+                    if (!items.isEmpty()) {
+                        WorldMapBackgrounds.populateSubMenu(context, addonBackgroundsItem, items, new WorldMapBackgrounds.OnWorldMapBackgroundItemClick()
+                        {
+                            @Override
+                            public void onClick(WorldMapBackgroundItem item) {
+                                onMapBackgroundResult(context, 0, Uri.parse(item.getUri()));
+                            }
+                        });
+                    }
+                    addonBackgroundsItem.setVisible(!items.isEmpty());
+                    return true;
+                }
+            }, 1000);
         }
     }
 
