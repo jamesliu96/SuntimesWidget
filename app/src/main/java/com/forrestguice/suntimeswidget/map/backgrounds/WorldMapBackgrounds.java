@@ -168,7 +168,8 @@ public class WorldMapBackgrounds
                     int i_summary = cursor.getColumnIndex(WorldMapBackgroundContract.COLUMN_BACKGROUND_SUMMARY);
                     int i_mapproj = cursor.getColumnIndex(WorldMapBackgroundContract.COLUMN_BACKGROUND_PROJECTION);
                     int i_mapproj_center = cursor.getColumnIndex(WorldMapBackgroundContract.COLUMN_BACKGROUND_PROJECTION_CENTER);
-                    int i_fileuri = cursor.getColumnIndex(WorldMapBackgroundContract.COLUMN_BACKGROUND_FILE);
+                    int i_dayFileUri = cursor.getColumnIndex(WorldMapBackgroundContract.COLUMN_BACKGROUND_FILE_DAY);
+                    int i_nightFileUri = cursor.getColumnIndex(WorldMapBackgroundContract.COLUMN_BACKGROUND_FILE_NIGHT);
                     int i_tint = cursor.getColumnIndex(WorldMapBackgroundContract.COLUMN_BACKGROUND_TINT);
 
                     String map_projection = (i_mapproj >= 0) ? cursor.getString(i_mapproj) : null;
@@ -176,7 +177,7 @@ public class WorldMapBackgrounds
                         Log.w("queryBackground", "map projection is missing! skipping item returned from: " + provider);
                         continue;
                     }
-                    String file_uri = (i_fileuri >= 0) ? cursor.getString(i_fileuri) : null;
+                    String file_uri = (i_dayFileUri >= 0) ? cursor.getString(i_dayFileUri) : null;
                     if (file_uri == null) {
                         Log.w("queryBackground", "file uri is missing! skipping item returned from: " + provider);
                         continue;
@@ -187,7 +188,8 @@ public class WorldMapBackgrounds
                     item.id = (i_id >= 0) ? cursor.getString(i_id) : null;
                     item.map_projection = map_projection;
                     item.map_projection_center = (i_mapproj_center >= 0 ? WorldMapBackgroundItem.parseCenter(cursor.getString(i_mapproj_center)) : null);
-                    item.file_uri = file_uri;
+                    item.file_day_uri = file_uri;
+                    item.file_night_uri = (i_nightFileUri >= 0) ? cursor.getString(i_nightFileUri) : null;
                     item.tint = (i_tint >= 0 && Boolean.parseBoolean(cursor.getString(i_tint)));
 
                     String titleValue = (i_title >= 0) ? cursor.getString(i_title) : null;
@@ -243,8 +245,8 @@ public class WorldMapBackgrounds
                     }
 
                     MenuItem menuItem = submenu.add(groupId, itemID, order++, item.getTitle());
-                    menuItem.setChecked(item.getUri().equals(selectedUri));
-                    Log.d("DEBUG", item.getUri() + " ?= " + selectedUri);
+                    menuItem.setChecked(item.getDayUri().equals(selectedUri));
+                    Log.d("DEBUG", item.getDayUri() + " ?= " + selectedUri);
                     menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener()
                     {
                         @Override

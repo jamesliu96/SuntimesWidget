@@ -1043,8 +1043,11 @@ public class WorldMapDialog extends BottomSheetDialogBase
                                 mapMode.getMapTag(), mapMode.getProjectionCenter(), items, new WorldMapBackgrounds.OnWorldMapBackgroundItemClick()
                         {
                             @Override
-                            public void onClick(WorldMapBackgroundItem item) {
-                                onMapBackgroundResult(context, 0, Uri.parse(item.getUri()), item.shouldTint(), item.getMapProjectionCenter());
+                            public void onClick(WorldMapBackgroundItem item)
+                            {
+                                Uri dayUri = Uri.parse(item.getDayUri());
+                                Uri nightUri = (item.getNightUri() != null ? Uri.parse(item.getNightUri()) : null);
+                                onMapBackgroundResult(context, 0, dayUri, nightUri, item.shouldTint(), item.getMapProjectionCenter());
                             }
                         });
                     }
@@ -1229,9 +1232,9 @@ public class WorldMapDialog extends BottomSheetDialogBase
         updateViews();
     }
 
-    protected void onMapBackgroundResult(Context context, int requestCode, Uri uri, boolean applyTint, @Nullable double[] recenter)
+    protected void onMapBackgroundResult(Context context, int requestCode, Uri dayUri, @Nullable Uri nightUri, boolean applyTint, @Nullable double[] recenter)
     {
-        Drawable background = WorldMapView.loadDrawableFromUri(context, uri.toString());
+        Drawable background = WorldMapView.loadDrawableFromUri(context, dayUri.toString());
         if (background == null) {
             Toast.makeText(context, context.getString(R.string.worldmap_dialog_option_background_error0), Toast.LENGTH_LONG).show();
             return;
@@ -1253,7 +1256,7 @@ public class WorldMapDialog extends BottomSheetDialogBase
             WorldMapWidgetSettings.saveWorldMapString(context, 0, WorldMapWidgetSettings.PREF_KEY_WORLDMAP_CENTER_LABEL, mapMode.getMapTag(), "TODO");
         }
 
-        WorldMapWidgetSettings.saveWorldMapBackground(context, 0, mapTag, center, uri.toString());
+        WorldMapWidgetSettings.saveWorldMapBackground(context, 0, mapTag, center, dayUri.toString());
         WorldMapWidgetSettings.saveWorldMapPref(context, 0, WorldMapWidgetSettings.PREF_KEY_WORLDMAP_TINTMAP, mapTag, applyTint);    // TODO: automatically set tint flag based on image transparency?
 
         updateOptions(context);
@@ -1272,7 +1275,7 @@ public class WorldMapDialog extends BottomSheetDialogBase
                 final int flags = data.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION;
                 context.getContentResolver().takePersistableUriPermission(uri, flags);
             }
-            onMapBackgroundResult(context, requestCode, uri, false, null);
+            onMapBackgroundResult(context, requestCode, uri, null, false, null);
         } else {
             Log.d(LOGTAG, "onActivityResult: bad result: " + resultCode + ", " + data);
         }
