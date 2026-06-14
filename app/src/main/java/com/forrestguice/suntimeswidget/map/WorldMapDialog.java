@@ -1256,7 +1256,8 @@ public class WorldMapDialog extends BottomSheetDialogBase
             WorldMapWidgetSettings.saveWorldMapString(context, 0, WorldMapWidgetSettings.PREF_KEY_WORLDMAP_CENTER_LABEL, mapMode.getMapTag(), "TODO");
         }
 
-        WorldMapWidgetSettings.saveWorldMapBackground(context, 0, mapTag, center, dayUri.toString());
+        WorldMapWidgetSettings.saveWorldMapBackground(context, 0, mapTag, center, true, dayUri.toString());
+        WorldMapWidgetSettings.saveWorldMapBackground(context, 0, mapTag, center, false, (nightUri != null ? nightUri.toString() : null));
         WorldMapWidgetSettings.saveWorldMapPref(context, 0, WorldMapWidgetSettings.PREF_KEY_WORLDMAP_TINTMAP, mapTag, applyTint);    // TODO: automatically set tint flag based on image transparency?
 
         updateOptions(context);
