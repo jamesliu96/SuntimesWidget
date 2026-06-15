@@ -34,22 +34,24 @@ public interface WorldMapBackgroundContract
     String REQUIRED_PERMISSION = "suntimes.permission.READ_CALCULATOR";
 
     String COLUMN_BACKGROUND_ID = "background_id";                               // id (int)
+    String COLUMN_BACKGROUND_TYPE = "background_type";                           // type string (day, night)
     String COLUMN_BACKGROUND_TITLE = "background_title";                         // short display string
     String COLUMN_BACKGROUND_SUMMARY = "background_summary";                     // long display string
-    String COLUMN_BACKGROUND_FILE_DAY = "background_file_day";                    // file uri (string)
-    String COLUMN_BACKGROUND_FILE_NIGHT = "background_file_night";               // file uri (string)
+    String COLUMN_BACKGROUND_FILE = "background_file";                           // file uri (string)
     String COLUMN_BACKGROUND_TINT = "background_tint";                           // request tint flag (boolean)
     String COLUMN_BACKGROUND_PROJECTION = "background_projection";               // proj4 string
     String COLUMN_BACKGROUND_PROJECTION_CENTER = "background_projection_center"; // lat,lon
 
     String QUERY_BACKGROUND_LIST = "backgroundList";
     String[] QUERY_BACKGROUND_LIST_PROJECTION = new String[] {
-            COLUMN_BACKGROUND_ID,
+            COLUMN_BACKGROUND_ID, COLUMN_BACKGROUND_TYPE,
             COLUMN_BACKGROUND_TITLE, COLUMN_BACKGROUND_SUMMARY,
             COLUMN_BACKGROUND_PROJECTION, COLUMN_BACKGROUND_PROJECTION_CENTER,
-            COLUMN_BACKGROUND_FILE_DAY, COLUMN_BACKGROUND_FILE_NIGHT,
-            COLUMN_BACKGROUND_TINT
+            COLUMN_BACKGROUND_FILE, COLUMN_BACKGROUND_TINT
     };
+
+    String TYPE_DAY = "day";
+    String TYPE_NIGHT = "night";
 
     String PROJECTION_EQC = "eqc";
     String PROJECTION_AEQD_NORTH = "aeqd_90,0";
