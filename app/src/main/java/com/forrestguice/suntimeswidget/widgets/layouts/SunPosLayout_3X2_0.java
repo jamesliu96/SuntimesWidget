@@ -85,49 +85,50 @@ public class SunPosLayout_3X2_0 extends SunPosLayout
         }
 
         options.center = WorldMapWidgetSettings.loadWorldMapCenter(context, 0, mapMode.getMapTag(), mapMode.getProjectionCenter());
-        Drawable background = WorldMapView.loadBackgroundDrawable(context, mapMode.getMapTag(), options.center);
+        Drawable background = WorldMapView.loadBackgroundDrawable(context, mapMode.getMapTag(), options.center, false);
+        Drawable background_night = WorldMapView.loadBackgroundDrawable(context, mapMode.getMapTag(), options.center, true);
 
         WorldMapProjection projection;
         switch (mapMode)
         {
             case MERCATOR_SIMPLE:
                 options.map = (background != null) ? background : ContextCompat.getDrawable(context, R.drawable.worldmap_mercator);
-                options.map_night = null;
+                options.map_night = background_night;
                 options.hasTransparentBaseMap = true;
                 projection = new WorldMapMercator();
                 break;
 
             case VANDERGRINTEN_SIMPLE:
                 options.map = (background != null) ? background : ContextCompat.getDrawable(context, R.drawable.worldmap_van_der_grinten);
-                options.map_night = null;
+                options.map_night = background_night;
                 options.hasTransparentBaseMap = true;
                 projection = new WorldMapVanDerGrinten();
                 break;
 
             case SINUSOIDAL_SIMPLE:
                 options.map = (background != null) ? background : ContextCompat.getDrawable(context, R.drawable.worldmap_sinusoidal);
-                options.map_night = null;
+                options.map_night = background_night;
                 options.hasTransparentBaseMap = true;
                 projection = new WorldMapSinusoidal();
                 break;
 
             case EQUIAZIMUTHAL_SIMPLE:
                 options.map = (background != null) ? background : ContextCompat.getDrawable(context, R.drawable.worldmap2);
-                options.map_night = null;
+                options.map_night = background_night;
                 options.hasTransparentBaseMap = true;
                 projection = new WorldMapEquiazimuthal();
                 break;
 
             case EQUIAZIMUTHAL_SIMPLE1:
                 options.map = (background != null) ? background : ContextCompat.getDrawable(context, R.drawable.worldmap3);
-                options.map_night = null;
+                options.map_night = background_night;
                 options.hasTransparentBaseMap = true;
                 projection = new WorldMapEquiazimuthal1();
                 break;
 
             case EQUIAZIMUTHAL_SIMPLE2:
                 options.map = background;  // ContextCompat.getDrawable(context, R.drawable.worldmap4);
-                options.map_night = null;
+                options.map_night = background_night;
                 options.hasTransparentBaseMap = true;
                 projection = new WorldMapEquiazimuthal2();
                 break;
@@ -143,7 +144,7 @@ public class SunPosLayout_3X2_0 extends SunPosLayout
             case EQUIRECTANGULAR_SIMPLE:
             default:
                 options.map = (background != null) ? background : ContextCompat.getDrawable(context, R.drawable.worldmap);
-                options.map_night = null;
+                options.map_night = background_night;
                 options.hasTransparentBaseMap = true;
                 projection = new WorldMapEquirectangular();
                 break;
