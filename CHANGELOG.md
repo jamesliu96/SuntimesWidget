@@ -1,8 +1,8 @@
 ### ~
 
 ### v0.17.3 (2026-06-22)
-* adds an extension for world map backgrounds; additional map imagery is now available through an addon (https://github.com/forrestguice/SuntimesMapPack).
-* fixes inaccurate Mercator and Van der Grinten projection extents.
+* extends the "set background" world map action; additional map backgrounds are now available as an addon (https://github.com/forrestguice/SuntimesMapPack).
+* fixes inconsistent Mercator and Van der Grinten projection extents.
 * fixes bug where "menu icons and text are misaligned" (#954); updates legacy icons with "material icons" and other icon related changes.
 * fixes bug where "span icons aren't readable in light mode" (white-on-white).
 * updates translation to German (#953 by Wuzzy).
